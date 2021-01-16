@@ -23,13 +23,13 @@ class Header extends React.Component{
                             <HashRouter>
                                 <ul id="nav-main" className="nav nav-main">
                                     <li>
-                                        <a href="#/">Home</a>
+                                        <NavLink to="/">Home</NavLink>
                                     </li>
                                     <li>
-                                        <a href="#/about-us">About</a>
+                                        <NavLink to="/about-us">About Us</NavLink>
                                     </li>
                                     <li>
-                                        <a href="#/contact">Contact</a>
+                                        <NavLink to="/contact">Contact</NavLink>  
                                     </li>
                                 </ul>
                             </HashRouter>

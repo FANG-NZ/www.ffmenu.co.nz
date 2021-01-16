@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, HashRouter } from 'react-router-dom';
+import { Route, HashRouter, Switch } from 'react-router-dom';
 
 import HomePage  from './homepage';
 import AboutUsPage from './aboutuspage';
@@ -12,9 +12,11 @@ class Content extends React.Component{
         return(
             <HashRouter>
             <div id="content">
-                <Route exact path="/" component={ HomePage }/>
-                <Route path="/about-us" component={AboutUsPage}/>
-                <Route path="/contact" component={ContactPage}/>    
+                <Switch>
+                    <Route exact path="/" component={ HomePage }/>
+                    <Route path="/about-us" component={ AboutUsPage }/>
+                    <Route path="/contact" component={ ContactPage }/>    
+                </Switch>
             </div>
             </HashRouter>
         );

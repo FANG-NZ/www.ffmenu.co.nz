@@ -4,6 +4,7 @@ export default class HomePage extends Component{
 
     render(){
         return(
+            <>
             <div className="page-title bg-light">
                 <div className="container">
                     <div className="row">
@@ -14,6 +15,30 @@ export default class HomePage extends Component{
                     </div>
                 </div>
             </div>
+
+            {/** START menu list */}
+            <div className="page-content">
+                <div className="container">
+                    <div className="row no-gutters">
+
+                        {/** START nav bar */}
+                        <div className="col-md-3">         
+                            <nav id="menu-navigation" className="stick-to-content" data-local-scroll>
+                                <ul className="nav nav-menu bg-dark dark">
+                                    <li><a href="#/about-us" onClick={ (event) => event.preventDefault() }>Burgers</a></li>
+                                    <li><a href="#Pasta">Pasta</a></li>
+                                    <li><a href="#Pizza">Pizza</a></li>
+                                    <li><a href="#Sushi">Sushi</a></li>
+                                    <li><a href="#Desserts">Desserts</a></li>
+                                    <li><a href="#Drinks">Drinks</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </>   
         );
     }
 
