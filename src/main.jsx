@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+
 import Header from './pages/header';
+import Content from './pages/content';
 
 class Main extends React.Component{
 
     render(){
         return (
-            
-            <Header />
-            
+            <div>
+                <Header />
+                <Content />
+            </div>
         );
     }
 

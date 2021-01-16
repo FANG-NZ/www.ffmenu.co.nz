@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashRouter, NavLink } from 'react-router-dom';
 
 class Header extends React.Component{
 
@@ -17,20 +18,21 @@ class Header extends React.Component{
                         </div>
 
                         {/* START col */}
-
                         <div className="col-md-7">
                             <nav className="module module-navigation left mr-4">
+                            <HashRouter>
                                 <ul id="nav-main" className="nav nav-main">
                                     <li>
-                                        <a href="">Home</a>
+                                        <a href="#/">Home</a>
                                     </li>
                                     <li>
-                                        <a href="">About</a>
+                                        <a href="#/about-us">About</a>
                                     </li>
                                     <li>
-                                        <a href="">Contact</a>
+                                        <a href="#/contact">Contact</a>
                                     </li>
                                 </ul>
+                            </HashRouter>
                             </nav>
                         </div>
                     </div>
