@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import CatalogBlock from '../components/catalogbolock';
+
 
 export default class HomePage extends Component{
+
+    constructor(props){
+        super(props);
+
+    }
 
     render(){
         return(
@@ -35,9 +42,24 @@ export default class HomePage extends Component{
                             </nav>
                         </div>
 
+                        {/** START catalog & meals */}
+                        <div className="col-md-9">
+                            
+                            {this.props.data.map(
+                                (value, index) => {
+                                    return <h1 key={value.id}>{ value.name }</h1>;
+                                }
+                            )}
+                            
+                            <CatalogBlock />
+                        </div>
+
                     </div>
                 </div>
             </div>
+
+
+
             </>   
         );
     }
