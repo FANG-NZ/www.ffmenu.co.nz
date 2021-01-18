@@ -45,20 +45,17 @@ export default class HomePage extends Component{
                         {/** START catalog & meals */}
                         <div className="col-md-9">
                             
-                            {this.props.data.map(
+                            {this.props.catalogs.map(
                                 (value, index) => {
-                                    return <h1 key={value.id}>{ value.name }</h1>;
+                                    return <CatalogBlock key={value.id} catalog={value} />;
                                 }
                             )}
                             
-                            <CatalogBlock />
                         </div>
 
                     </div>
                 </div>
             </div>
-
-
 
             </>   
         );
