@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-scroll';
 import CatalogBlock from '../components/catalogblock';
 
 
@@ -43,7 +44,15 @@ export default class HomePage extends Component{
                                             return(
                                                 <li key={value.id}>
                                                     {/* <a href={"#" + _name}  onClick={ (event) => event.preventDefault() }>{value.name}</a> */}
-                                                    <a href={"#" + _name}  onClick={ (event) => (true) }>{value.name}</a>
+                                                    {/* <a href={"#" + _name}  onClick={ (event) => (true) }>{value.name}</a> */}
+                                                    <Link
+                                                        activeClass="active" to={_name} 
+                                                        spy={true} smooth={true} 
+                                                        offset={50} duration={500}
+                                                        style={{cursor: "pointer"}}    
+                                                    >
+                                                        {value.name}
+                                                    </Link>
                                                 </li>
                                             )
                                         }
