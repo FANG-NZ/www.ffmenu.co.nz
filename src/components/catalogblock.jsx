@@ -6,8 +6,11 @@ export default class CatalogBlock extends Component{
     render(){
         const _data = this.props.catalog;
 
+        let _key_name = _data.name.toLowerCase();
+              _key_name = _key_name.replace(/ /g, "-");
+
         return(
-            <div id="Burgers" className="menu-category" >
+            <div id={_key_name} className="menu-category" >
                 <div className="menu-category-title">
                     <div className="bg-image">
                         <img src="http://assets.suelo.pl/soup/img/photos/menu-title-burgers.jpg" alt="" />

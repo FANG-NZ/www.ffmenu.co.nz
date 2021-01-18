@@ -36,11 +36,17 @@ export default class HomePage extends Component{
                                 <ul className="nav nav-menu bg-dark dark">
 
                                     {_data.map(
-                                        (value, index)=>(
-                                            <li>
-                                                <a href={"#" + value.name} key={value.id} onClick={ (event) => event.preventDefault() }>{value.name}</a>
-                                            </li>
-                                        )
+                                        (value, index)=>{
+                                            let _name = value.name.toLowerCase();
+                                                _name = _name.replace(/ /g, "-");
+
+                                            return(
+                                                <li key={value.id}>
+                                                    {/* <a href={"#" + _name}  onClick={ (event) => event.preventDefault() }>{value.name}</a> */}
+                                                    <a href={"#" + _name}  onClick={ (event) => (true) }>{value.name}</a>
+                                                </li>
+                                            )
+                                        }
                                     )}
 
                                     {/* <li><a href="#/about-us" onClick={ (event) => event.preventDefault() }>Burgers</a></li>
