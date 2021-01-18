@@ -11,9 +11,7 @@ class Header extends React.Component{
                     <div className="row">
                         <div className="col-md-3">
                             <div className="module module-logo dark">
-                                <a href="index.html">
-                                    <img src="assets/img/logo-light.svg" alt="" width="88"></img>
-                                </a>
+                                <h4>KOKORO SUSHI</h4>
                             </div>
                         </div>
 

@@ -10,14 +10,16 @@ export default class HomePage extends Component{
     }
 
     render(){
+        const _data = this.props.catalogs;
+
         return(
             <>
             <div className="page-title bg-light">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8 offset-lg-4">
-                            <h1 className="mb-0">Home Page</h1>
-                            <h4 className="text-muted mb-0">This is our HOME PAGE</h4>
+                            <h1 className="mb-0">Our Menu</h1>
+                            <h4 className="text-muted mb-0">We provide the best to make your right choose</h4>
                         </div>
                     </div>
                 </div>
@@ -32,12 +34,21 @@ export default class HomePage extends Component{
                         <div className="col-md-3">         
                             <nav id="menu-navigation" className="stick-to-content" data-local-scroll>
                                 <ul className="nav nav-menu bg-dark dark">
-                                    <li><a href="#/about-us" onClick={ (event) => event.preventDefault() }>Burgers</a></li>
+
+                                    {_data.map(
+                                        (value, index)=>(
+                                            <li>
+                                                <a href={"#" + value.name} key={value.id} onClick={ (event) => event.preventDefault() }>{value.name}</a>
+                                            </li>
+                                        )
+                                    )}
+
+                                    {/* <li><a href="#/about-us" onClick={ (event) => event.preventDefault() }>Burgers</a></li>
                                     <li><a href="#Pasta">Pasta</a></li>
                                     <li><a href="#Pizza">Pizza</a></li>
                                     <li><a href="#Sushi">Sushi</a></li>
                                     <li><a href="#Desserts">Desserts</a></li>
-                                    <li><a href="#Drinks">Drinks</a></li>
+                                    <li><a href="#Drinks">Drinks</a></li> */}
                                 </ul>
                             </nav>
                         </div>

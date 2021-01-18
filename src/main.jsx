@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
 import Header from './pages/header';
+import Footer from './pages/footer'
 import { Route, HashRouter, Switch } from 'react-router-dom';
 
 import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
+import NotFoundPage from './pages/notfoundpage';
 
 
 const data = [
@@ -53,9 +55,13 @@ class Main extends Component{
                             <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
                             <Route path="/about-us" component={ AboutUsPage }/>
                             <Route path="/contact" component={ ContactPage }/>    
+
+                            <Route component={ NotFoundPage } />                            
                         </Switch>
                     </div>
                 </HashRouter>
+
+                <Footer />
             </>
         );
     }
