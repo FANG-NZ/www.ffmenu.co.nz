@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CatalogBlock from '../components/catalogbolock';
+import CatalogBlock from '../components/catalogblock';
 
 
 export default class HomePage extends Component{

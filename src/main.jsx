@@ -14,9 +14,12 @@ const data = [
         name : "Test catalog name",
         meals : [
             {
-                name: 'Test meal one'
+                id: 1,
+                name: 'Test meal one',
+                description: "item, anything, good item"
             },
             {
+                id: 2,
                 name: 'Test meal two'
             }
         ]
@@ -27,9 +30,11 @@ const data = [
         name : "Another test",
         meals : [
             {
+                id: 3,
                 name: 'Test meal one'
             },
             {
+                id: 4,
                 name: 'Test meal two'
             }
         ]
