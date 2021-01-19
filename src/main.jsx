@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Header from './pages/header';
 import Footer from './pages/footer'
 import { Route, HashRouter, Switch } from 'react-router-dom';
-import {StickyContainer, Sticky} from 'react-sticky';
 
 import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';

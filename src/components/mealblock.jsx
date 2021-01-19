@@ -6,14 +6,15 @@ export default class MealBlock extends Component{
         super(props);
 
         // This binding is necessary to make `this` work in the callback
-        this.handleAddClick = this.handleAddClick.bind(this);
+        this.handleClicked = this.handleClicked.bind(this);
     }
 
-    handleAddClick(id){
+    handleClicked(id){
         const _data = this.props.meal;
 
-
-        alert("Yes clicked == " + id + " MEAL : " + _data.name);
+        //alert("Yes clicked == " + id + " MEAL : " + _data.name);
+        //call parents function
+        this.props.onMealClicked(_data);
     }
 
     render(){
@@ -32,7 +33,7 @@ export default class MealBlock extends Component{
                             <span data-product-base-price>9.00</span>
                         </span>
                         <button className="btn btn-outline-secondary btn-sm" data-action="open-cart-modal" 
-                            onClick={() => this.handleAddClick(_data.id)}
+                            onClick={() => this.handleClicked(_data.id)}
                         >
                             <span>Add to cart</span>
                         </button>
@@ -41,6 +42,5 @@ export default class MealBlock extends Component{
             </div>
         );
     }
-
 
 }

@@ -3,6 +3,10 @@ import MealBlock from './mealblock';
 
 export default class CatalogBlock extends Component{
 
+    // onMealClicked(data){
+    //     console.log(data);
+    // }
+
     render(){
         const _data = this.props.catalog;
 
@@ -21,7 +25,7 @@ export default class CatalogBlock extends Component{
                     
                     {_data.meals.map(
                         (value) => {
-                            return <MealBlock key={value.id} meal={value} />
+                            return <MealBlock key={value.id} meal={value} onMealClicked={this.props.onMealClicked} />
                         }
                     )}
                     

@@ -3,6 +3,7 @@ import {Link} from 'react-scroll';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CatalogBlock from '../components/catalogblock';
+import MealPopup from '../components/mealpopup';
 
 
 export default class HomePage extends Component{
@@ -10,6 +11,18 @@ export default class HomePage extends Component{
     constructor(props){
         super(props);
 
+        //create meal popup ref
+        this.mealpopupRef = React.createRef();
+        //To bind THIS into openMealPopup
+        this.openMealPopup = this.openMealPopup.bind(this);
+    }
+
+    //Function is to open meal popup
+    openMealPopup(data){
+
+        console.log(data);
+
+        this.mealpopupRef.current.open();
     }
 
     render(){
@@ -82,7 +95,7 @@ export default class HomePage extends Component{
                             
                             {this.props.catalogs.map(
                                 (value, index) => {
-                                    return <CatalogBlock key={value.id} catalog={value} />;
+                                    return <CatalogBlock key={value.id} catalog={value} onMealClicked={this.openMealPopup}/>;
                                 }
                             )}
                             
@@ -92,6 +105,8 @@ export default class HomePage extends Component{
                 </div>
             </div>
             </StickyContainer>
+
+            <MealPopup ref={this.mealpopupRef} />
             </>   
         );
     }
