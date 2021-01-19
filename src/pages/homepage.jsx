@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-scroll';
-import {StickyContainer, Sticky} from 'react-sticky';
+import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CatalogBlock from '../components/catalogblock';
 

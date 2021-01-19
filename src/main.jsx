@@ -61,7 +61,6 @@ class Main extends Component{
                         </Switch>
                     </div>
                 </HashRouter>
-
                 <Footer />
             </>
         );
