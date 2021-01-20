@@ -20,35 +20,35 @@ const data = [
                 id: 1,
                 name: 'Teriyaki Chicken & Avocado Row',
                 description: "avocado, cucumber, capsicum",
-                prices: {
-                    1:{
+                prices: [
+                    {
                         id: 1,
                         unit: "5/pc(s)",
                         price: 8.50
                     },
-                    2:{
+                    {
                         id: 2,
                         unit: "10/pc(s)",
                         price: 17.00
                     }
-                }
+                ]
             },
             {
                 id: 2,
                 name: 'Teriyaki Chicken & Cream Row',
                 description: "avocado, cucumber, capsicum",
-                prices: {
-                    3:{
+                prices: [
+                    {
                         id: 3,
                         unit: "5/pc(s)",
                         price: 8.50
                     },
-                    4:{
+                    {
                         id: 4,
                         unit: "10/pc(s)",
                         price: 17.00
                     }
-                }
+                ]
             }
         ]
     },
@@ -62,18 +62,18 @@ const data = [
                 id: 3,
                 name: 'Fresh Salmon & Avocado Row',
                 description: "avocado",
-                prices: {
-                    5:{
+                prices: [
+                    {
                         id: 5,
                         unit: "5/pc(s)",
                         price: 9.00
                     },
-                    6:{
+                    {
                         id: 6,
                         unit: "10/pc(s)",
                         price: 18.00
                     }
-                }
+                ]
             }
         ]
     },
@@ -84,12 +84,16 @@ const data = [
         banner_img: "http://themes.suelo.pl/soup/assets/img/photos/menu-title-drinks.jpg",
         meals : [
             {
-                id: 3,
-                name: 'Test meal one'
-            },
-            {
                 id: 4,
-                name: 'Test meal two'
+                name: 'Teriyaki Chicken Donburi',
+                description: "vegetable salad, mustard sauce",
+                prices: [
+                    {
+                        id: 7,
+                        unit: "pack",
+                        price: 13.90
+                    }
+                ]
             }
         ]
     }

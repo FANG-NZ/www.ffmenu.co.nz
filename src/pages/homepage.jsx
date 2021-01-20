@@ -26,12 +26,12 @@ export default class HomePage extends Component{
 
     //defien the component mount
     componentDidMount(){
-        const _test = {
-            id: 1,
-            name: 'THIS IS TESTING',
-            description: "item, anything, good item"
-        };
-        this.mealpopupRef.current.open(_test);
+        // const _test = {
+        //     id: 1,
+        //     name: 'THIS IS TESTING',
+        //     description: "item, anything, good item"
+        // };
+        // this.mealpopupRef.current.open(_test);
     }
 
     render(){

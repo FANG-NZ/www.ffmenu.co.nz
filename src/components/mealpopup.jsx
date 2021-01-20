@@ -5,7 +5,9 @@ import bgImage from '../images/modal-add.jpg'
 import '../scss/mealpopup.scss';
 
 
-
+/**
+ * This is for SVG 
+ */
 const FFMSVG = () => {
     return(
         <svg className="icon" x="0px" y="0px" viewBox="0 0 32 32">
@@ -24,34 +26,99 @@ const FFMSVG = () => {
 
 
 
+class MealPriceBlock extends Component{
+
+    render(){
+        const _data = this.props.price;
+
+        return(
+            <div className="form-group">
+                <label className="custom-control custom-radio">
+                    <input name="radio_size" type="radio" className="custom-control-input"
+                        value={_data.id}
+                        defaultChecked={this.props.isSlected}
+                        onChange={(e) => this.props.onPriceClicked(e, _data)}
+                    />
+                    <span className="custom-control-indicator">
+                        <FFMSVG />
+                    </span>
+                    <span className="custom-control-description">
+                        {_data.unit} (${_data.price.toFixed(2)})
+                    </span>
+                </label>
+            </div>
+        );
+    }
+
+}
+
+
+
+
+/**
+ * Comonent
+ * Meal Popup
+ */
 export default class MealPopup extends Component{
 
     //define the default state
     state = {
         isOpen: false,
+        
         data: {
             qty: 1,
             price_id: 0,
+            price: 0,
             comments: ""
         },
+
         meal: {}
     };
 
     constructor(props){
         super(props);
 
-        this.onPriceChanged = this.onPriceChanged.bind(this);
+        this.onPriceSlected = this.onPriceSlected.bind(this);
     }
 
     //define the functions
-    open = (data) => this.setState({ isOpen: true, meal: data });
-    close = () => this.setState({ isOpen: false });
+    /**
+     * 
+     * @param {array} data
+     * cart & meal info 
+     */
+    open = (data) => {
+
+        //check if there is CART info passed
+        //YES, we handle this for UPDATE
+        //otherwise, this is ADD NEW
+        if(data.cart_item){
+            this.setState({ data: data.cart_item });
+        }
+
+        this.setState({ isOpen: true, meal: data.meal });
+    }
+
+    close = () => {
+        this.setState({ 
+            isOpen: false, 
+            data: {
+                qty: 1,
+                price_id: 0,
+                price: 0,
+                comments: ""
+            },
+            meal: {}
+        });
+    }
 
     //defien the price radio button clicked
-    onPriceChanged(e){
+    onPriceSlected(e, object){
         let _value = e.target.value,
             _data = this.state.data;
             _data.price_id = _value;
+            _data.price = object.price;
+
         this.setState({data : _data});
     }
 
@@ -68,8 +135,14 @@ export default class MealPopup extends Component{
     }
 
     render(){
-        const _meal = this.state.meal,
-              _data = this.state.data;
+        const _meal = this.state.meal;
+        let  _data = this.state.data;
+
+        
+        if(_data.price_id === 0 && "prices" in _meal){
+            _data.price_id = _meal.prices[0].id;
+            _data.price = _meal.prices[0].price;
+        }
 
         return(
             <Modal id="meal-popup" show={this.state.isOpen} onHide={this.close}>
@@ -93,7 +166,7 @@ export default class MealPopup extends Component{
                             <span className="text-muted product-modal-ingredients">{_meal.description}</span>
                         </div>
                         <div className="col-3 text-lg text-right">
-                            $<span className="product-modal-price"></span>
+                            $<span className="product-modal-price">{_data.price.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
@@ -108,45 +181,16 @@ export default class MealPopup extends Component{
                         <div className="collapse show">
                             
                             <div className="product-modal-sizes">
-                                <div className="form-group">
-                                    <label className="custom-control custom-radio">
-                                        <input name="radio_size" type="radio" className="custom-control-input"
-                                            value="p_1"
-                                            checked={_data.price_id === "p_1"}
-                                            onChange={this.onPriceChanged}
-                                        />
-                                        <span className="custom-control-indicator">
-                                            <FFMSVG />
-                                        </span>
-                                        <span className="custom-control-description">Small - 100g ($9.99)</span>
-                                    </label>
-                                </div>
-                                <div className="form-group">
-                                    <label className="custom-control custom-radio">
-                                        <input name="radio_size" type="radio" className="custom-control-input" 
-                                            value="p_2"
-                                            checked={_data.price_id === "p_2"}
-                                            onChange={this.onPriceChanged}
-                                        />
-                                        <span className="custom-control-indicator">
-                                            <FFMSVG />
-                                        </span>
-                                        <span className="custom-control-description">Medium - 200g ($14.99)</span>
-                                    </label>
-                                </div>
-                                <div className="form-group">
-                                    <label className="custom-control custom-radio">
-                                        <input name="radio_size" type="radio" className="custom-control-input" 
-                                            value="p_3"
-                                            checked={_data.price_id === "p_3"}
-                                            onChange={this.onPriceChanged}
-                                        />
-                                        <span className="custom-control-indicator">
-                                            <FFMSVG />
-                                        </span>
-                                        <span className="custom-control-description">Large - 350g ($21.99)</span>
-                                    </label>
-                                </div>
+
+                                {'prices' in _meal && _meal.prices.map(
+                                    (value) => {
+                                        return <MealPriceBlock key={value.id} 
+                                                isSlected={(_data.price_id === value.id)?true:false}
+                                                price={value} 
+                                                onPriceClicked={(e, object) => this.onPriceSlected(e, object)} />
+                                    }
+                                )}
+                                
                             </div>
                             
                         </div>
@@ -176,7 +220,18 @@ export default class MealPopup extends Component{
                             {/* <i className="ti ti-pencil action-icon"></i> */}
                         </h5>
                         <div id="panel-details-other" className="collapse show">                    
-                            <textarea cols="30" rows="4" className="form-control" placeholder="Put this any other informations..."></textarea>
+                            <textarea cols="30" rows="4" className="form-control" 
+                                placeholder="Put this any other informations..." 
+                                value={_data.comments} 
+                                onChange={
+                                    (e) => {
+                                        let _value = e.target.value,
+                                            _data = this.state.data;
+                                            _data.comments = _value;
+                                        this.setState({data: _data})
+                                    }
+                                } 
+                            />
                         </div>
                     </div>
                 </Modal.Body>
