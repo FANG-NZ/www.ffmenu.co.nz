@@ -13,23 +13,75 @@ import NotFoundPage from './pages/notfoundpage';
 const data = [
     {
         id: 1,
-        name : "Test catalog name",
+        name : "Chicken",
+        banner_img: "http://themes.suelo.pl/soup/assets/img/photos/menu-title-burgers.jpg",
         meals : [
             {
                 id: 1,
-                name: 'Test meal one',
-                description: "item, anything, good item"
+                name: 'Teriyaki Chicken & Avocado Row',
+                description: "avocado, cucumber, capsicum",
+                prices: {
+                    1:{
+                        id: 1,
+                        unit: "5/pc(s)",
+                        price: 8.50
+                    },
+                    2:{
+                        id: 2,
+                        unit: "10/pc(s)",
+                        price: 17.00
+                    }
+                }
             },
             {
                 id: 2,
-                name: 'Test meal two'
+                name: 'Teriyaki Chicken & Cream Row',
+                description: "avocado, cucumber, capsicum",
+                prices: {
+                    3:{
+                        id: 3,
+                        unit: "5/pc(s)",
+                        price: 8.50
+                    },
+                    4:{
+                        id: 4,
+                        unit: "10/pc(s)",
+                        price: 17.00
+                    }
+                }
             }
         ]
     },
 
     {
         id: 2,
-        name : "Another test",
+        name : "Salmon",
+        banner_img: "http://themes.suelo.pl/soup/assets/img/photos/menu-title-sushi.jpg",
+        meals : [
+            {
+                id: 3,
+                name: 'Fresh Salmon & Avocado Row',
+                description: "avocado",
+                prices: {
+                    5:{
+                        id: 5,
+                        unit: "5/pc(s)",
+                        price: 9.00
+                    },
+                    6:{
+                        id: 6,
+                        unit: "10/pc(s)",
+                        price: 18.00
+                    }
+                }
+            }
+        ]
+    },
+
+    {
+        id: 3,
+        name : "Donburi",
+        banner_img: "http://themes.suelo.pl/soup/assets/img/photos/menu-title-drinks.jpg",
         meals : [
             {
                 id: 3,

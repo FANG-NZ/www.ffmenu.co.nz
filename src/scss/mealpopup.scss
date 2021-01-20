@@ -10,4 +10,31 @@
         padding: 1.5rem 2rem;
     }
 
+    .panel-details{
+        padding-bottom: 1.25rem;
+
+        &:first-child{
+            .panel-details-title{
+                padding-top: 0;
+            }
+        }
+
+        &:last-child{
+            padding-bottom: 0;
+        }
+    }
+
+    //START qty input
+    .panel-details-qty{
+        display: flex;
+        align-items: center;
+        padding-top: 1.25rem;
+
+        .panel-details-title{padding: 0;}
+        .form-control{
+            width: 80px;
+            margin-left: 15px;
+        }
+    }
+
 }
