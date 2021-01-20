@@ -11,7 +11,7 @@ export default class CatalogBlock extends Component{
         const _data = this.props.catalog;
 
         let _key_name = _data.name.toLowerCase();
-              _key_name = _key_name.replace(/ /g, "-");
+            _key_name = _key_name.replace(/ /g, "-");
 
         return(
             <div name={_key_name} className="menu-category" >

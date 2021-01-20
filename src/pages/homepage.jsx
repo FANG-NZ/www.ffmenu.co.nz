@@ -24,6 +24,16 @@ export default class HomePage extends Component{
         this.mealpopupRef.current.open(data);
     }
 
+    //defien the component mount
+    componentDidMount(){
+        const _test = {
+            id: 1,
+            name: 'THIS IS TESTING',
+            description: "item, anything, good item"
+        };
+        this.mealpopupRef.current.open(_test);
+    }
+
     render(){
         const _data = this.props.catalogs;
 

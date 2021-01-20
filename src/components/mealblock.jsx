@@ -2,19 +2,6 @@ import React, {Component} from 'react';
 
 export default class MealBlock extends Component{
 
-    constructor(props){
-        super(props);
-
-        // This binding is necessary to make `this` work in the callback
-        this.handleClicked = this.handleClicked.bind(this);
-    }
-
-    handleClicked(id){
-        const _data = this.props.meal;
-        //call parents function
-        this.props.onMealClicked(_data);
-    }
-
     render(){
         const _data = this.props.meal;
 
@@ -30,8 +17,9 @@ export default class MealBlock extends Component{
                             <span className="text-muted">from</span> $
                             <span data-product-base-price>9.00</span>
                         </span>
-                        <button className="btn btn-outline-secondary btn-sm" data-action="open-cart-modal" 
-                            onClick={() => this.handleClicked(_data.id)}
+                        
+                        <button className="btn btn-outline-secondary btn-sm" 
+                            onClick={()=> this.props.onMealClicked(_data)}
                         >
                             <span>Add to cart</span>
                         </button>

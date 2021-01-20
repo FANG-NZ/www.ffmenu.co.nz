@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Modal, Button} from  'react-bootstrap';
 
+import bgImage from '../images/modal-add.jpg'
+
 export default class MealPopup extends Component{
 
     //define the default state
@@ -17,15 +19,19 @@ export default class MealPopup extends Component{
 
     }
 
-
     render(){
         const _data = this.state.mealData;
 
-
         return(
             <Modal show={this.state.isOpen} onHide={this.close}>
-                <Modal.Header closeButton>
+                <Modal.Header className={"modal-header-lg dark bg-dark"}>
+                    <div className="bg-image" style={{backgroundImage: `url(${bgImage})`}}>
+                        <img src={bgImage} />
+                    </div>
                     <Modal.Title>{_data.name}</Modal.Title>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <i className="ti ti-close"></i>
+                    </button>
                 </Modal.Header>
                 <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
                 <Modal.Footer>
@@ -36,6 +42,5 @@ export default class MealPopup extends Component{
             </Modal>
         );
     }
-
 
 }
