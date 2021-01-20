@@ -20,9 +20,8 @@ export default class HomePage extends Component{
     //Function is to open meal popup
     openMealPopup(data){
 
-        console.log(data);
-
-        this.mealpopupRef.current.open();
+        //call meal popup method
+        this.mealpopupRef.current.open(data);
     }
 
     render(){

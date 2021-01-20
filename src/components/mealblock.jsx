@@ -11,8 +11,6 @@ export default class MealBlock extends Component{
 
     handleClicked(id){
         const _data = this.props.meal;
-
-        //alert("Yes clicked == " + id + " MEAL : " + _data.name);
         //call parents function
         this.props.onMealClicked(_data);
     }
