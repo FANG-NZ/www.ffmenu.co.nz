@@ -4,6 +4,8 @@ import Header from './pages/header';
 import Footer from './pages/footer'
 import { Route, HashRouter, Switch } from 'react-router-dom';
 
+import {CartProvider} from './tools/cartcontext';
+
 import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
@@ -105,7 +107,7 @@ class Main extends Component{
 
     render(){
         return (
-            <>
+            <CartProvider>
                 <Header />
                 
                 <div id="content">
@@ -123,7 +125,7 @@ class Main extends Component{
                 </div>
                 
                 <CartPanel />
-            </>
+            </CartProvider>
         );
     }
 

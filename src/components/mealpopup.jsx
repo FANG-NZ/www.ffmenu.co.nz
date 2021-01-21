@@ -73,7 +73,7 @@ export default class MealPopup extends Component{
         },
 
         meal: {}
-    };
+    }
 
     constructor(props){
         super(props);
