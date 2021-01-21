@@ -150,7 +150,7 @@ export default class MealPopup extends Component{
                 {/** START header */}
                 <Modal.Header className={"modal-header-lg dark bg-dark"}>
                     <div className="bg-image" style={{backgroundImage: `url(${bgImage})`}}>
-                        <img src={bgImage} />
+                        <img src={bgImage} alt="catalog banner" />
                     </div>
                     <Modal.Title style={{marginBottom: 0}}>Specify your dish</Modal.Title>
                     <button type="button" className="close" onClick={this.close}>

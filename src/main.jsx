@@ -9,6 +9,8 @@ import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
 import NotFoundPage from './pages/notfoundpage';
 
+import CartPanel from './components/cartpanel';
+
 
 const data = [
     {
@@ -105,18 +107,22 @@ class Main extends Component{
         return (
             <>
                 <Header />
-                <HashRouter>
-                    <div id="content">
-                        <Switch>
-                            <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
-                            <Route path="/about-us" component={ AboutUsPage }/>
-                            <Route path="/contact" component={ ContactPage }/>    
+                
+                <div id="content">
+                    <HashRouter>
+                    <Switch>
+                        <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
+                        <Route path="/about-us" component={ AboutUsPage }/>
+                        <Route path="/contact" component={ ContactPage }/>    
 
-                            <Route component={ NotFoundPage } />                            
-                        </Switch>
-                    </div>
-                </HashRouter>
-                <Footer />
+                        <Route component={ NotFoundPage } />                            
+                    </Switch>
+                    </HashRouter>
+
+                    <Footer />
+                </div>
+                
+                <CartPanel />
             </>
         );
     }

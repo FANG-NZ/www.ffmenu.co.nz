@@ -3,6 +3,14 @@ import { HashRouter, NavLink } from 'react-router-dom';
 
 class Header extends React.Component{
 
+    /**
+     * Function is to handle open cart panel button
+     * clicked
+     */
+    handleOpenCartClicked(){
+        alert("Yes clicked");
+    }
+
 
     render(){
         return (
@@ -15,7 +23,7 @@ class Header extends React.Component{
                             </div>
                         </div>
 
-                        {/* START col */}
+                        {/* START col nav */}
                         <div className="col-md-7">
                             <nav className="module module-navigation left mr-4">
                             <HashRouter>
@@ -33,6 +41,20 @@ class Header extends React.Component{
                             </HashRouter>
                             </nav>
                         </div>
+
+                        {/** START col cart */}
+                        <div className="col-md-2">
+                            <a href="#" onClick={this.handleOpenCartClicked} className="module module-cart right">
+                                <span className="cart-icon">
+                                    <i className="ti ti-shopping-cart"></i>
+                                    <span className="notification">0</span>
+                                </span>
+                                <span className="cart-value">
+                                    $<span className="value">0.00</span>
+                                </span>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </header>
