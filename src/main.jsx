@@ -5,6 +5,7 @@ import Footer from './pages/footer'
 import { Route, HashRouter, Switch } from 'react-router-dom';
 
 import {CartProvider} from './tools/cartcontext';
+import {FFMenuContextProvider} from './tools/ffmenucontext';
 
 import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
@@ -12,6 +13,7 @@ import ContactPage from './pages/contactpage';
 import NotFoundPage from './pages/notfoundpage';
 
 import CartPanel from './components/cartpanel';
+import BodyOverlay from './components/bodyoverlay';
 
 
 const data = [
@@ -107,6 +109,7 @@ class Main extends Component{
 
     render(){
         return (
+            <FFMenuContextProvider>
             <CartProvider>
                 <Header />
                 
@@ -125,7 +128,11 @@ class Main extends Component{
                 </div>
                 
                 <CartPanel />
+                
+                {/** Add body overlay here */}
+                <BodyOverlay />
             </CartProvider>
+            </FFMenuContextProvider>
         );
     }
 
