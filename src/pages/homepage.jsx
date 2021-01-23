@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-scroll';
+import {Link as ScrollLink} from 'react-scroll';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CatalogBlock from '../components/catalogblock';
@@ -59,8 +59,8 @@ export default class HomePage extends Component{
                         {/** START nav bar */}
                         <div className="col-md-3">         
                             
-                                <Sticky>{(
-                                    ({style}) => (
+                                <Sticky>{
+                                    ({style}) => 
                                         <nav id="menu-navigation" className="stick-to-content" style={style}>
                                             <ul className="nav nav-menu bg-dark dark">
 
@@ -71,31 +71,24 @@ export default class HomePage extends Component{
 
                                                         return(
                                                             <li key={value.id}>
-                                                                {/* <a href={"#" + _name}  onClick={ (event) => event.preventDefault() }>{value.name}</a> */}
-                                                                {/* <a href={"#" + _name}  onClick={ (event) => (true) }>{value.name}</a> */}
-                                                                <Link
-                                                                    activeClass="active" to={_name} 
-                                                                    spy={true} smooth={true} 
-                                                                    offset={50} duration={500}
+                                                                <ScrollLink
+                                                                    activeClass="active" 
+                                                                    to={_name} 
+                                                                    spy={true} 
+                                                                    smooth={true} 
+                                                                    offset={50} 
+                                                                    duration={500}
                                                                     style={{cursor: "pointer"}}    
                                                                 >
                                                                     {value.name}
-                                                                </Link>
+                                                                </ScrollLink>
                                                             </li>
                                                         )
                                                     }
                                                 )}
-
-                                            {/* <li><a href="#/about-us" onClick={ (event) => event.preventDefault() }>Burgers</a></li>
-                                            <li><a href="#Pasta">Pasta</a></li>
-                                            <li><a href="#Pizza">Pizza</a></li>
-                                            <li><a href="#Sushi">Sushi</a></li>
-                                            <li><a href="#Desserts">Desserts</a></li>
-                                            <li><a href="#Drinks">Drinks</a></li> */}
                                             </ul>
                                         </nav>
-                                    )
-                                )}</Sticky>
+                                }</Sticky>
                             
                         </div>
 

@@ -11,9 +11,7 @@ import '../scss/header.scss';
  */
 const NavBlock = (props)=> {
 
-    console.log(props.is4Mobile);
-    const _className = "nav " + ((props.is4Mobile)? "nav-main-mobile" : "nav-main"),
-          _id = (props.is4Mobile)? "nav-main-mobile" : "nav-main";
+    const _className = "nav " + ((props.is4Mobile)? "nav-main-mobile" : "nav-main");
 
     return(
         <ul className={_className}>
@@ -168,7 +166,7 @@ class Header extends React.Component{
                             <nav className="module module-navigation">
                                 <NavBlock is4Mobile={true} />
                             </nav>
-                            
+
                             <div className="module module-social">
                                 <h6 className="text-sm mb-3">Follow Us!</h6>
                                 <a href="#" className="icon icon-social icon-circle icon-sm icon-facebook">
