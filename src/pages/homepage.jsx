@@ -5,6 +5,8 @@ import {StickyContainer, Sticky} from 'react-sticky-17';
 import CatalogBlock from '../components/catalogblock';
 import MealPopup from '../components/mealpopup';
 
+import '../scss/homepage.scss';
+
 
 export default class HomePage extends Component{
 
@@ -60,7 +62,7 @@ export default class HomePage extends Component{
                         <div className="col-md-3">         
                             
                                 <Sticky>{
-                                    ({style}) => 
+                                    ({style, isSticky}) => 
                                         <nav id="menu-navigation" className="stick-to-content" style={style}>
                                             <ul className="nav nav-menu bg-dark dark">
 
