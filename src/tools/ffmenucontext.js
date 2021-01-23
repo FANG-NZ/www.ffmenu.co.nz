@@ -6,6 +6,7 @@ export class FFMenuContextProvider extends Component{
 
     state = {
         isBodyOverlayShown: false,
+        //defien the overlay clicked callback
         bodyOverlayClicked: ()=>{console.log("This should be assign the callback")}
     }
 

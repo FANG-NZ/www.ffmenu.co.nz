@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
-import { Route, HashRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import {CartProvider} from './tools/cartcontext';
 import {FFMenuContextProvider} from './tools/ffmenucontext';
@@ -111,19 +111,21 @@ class Main extends Component{
         return (
             <FFMenuContextProvider>
             <CartProvider>
+
+                {/** Add Browser Router */}
+                <BrowserRouter>
                 <Header />
                 
                 <div id="content">
-                    <HashRouter>
+                    
                     <Switch>
                         <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
-                        <Route path="/about-us" component={ AboutUsPage }/>
-                        <Route path="/contact" component={ ContactPage }/>    
+                        <Route exact path="/about-us" component={ AboutUsPage }/>
+                        <Route exact path="/contact" component={ ContactPage }/>    
 
                         <Route component={ NotFoundPage } />                            
                     </Switch>
-                    </HashRouter>
-
+                    
                     <Footer />
                 </div>
                 
@@ -131,6 +133,8 @@ class Main extends Component{
                 
                 {/** Add body overlay here */}
                 <BodyOverlay />
+                </BrowserRouter>
+
             </CartProvider>
             </FFMenuContextProvider>
         );

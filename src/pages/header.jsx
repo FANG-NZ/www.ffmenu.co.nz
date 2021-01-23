@@ -1,9 +1,36 @@
 import React from 'react';
-import { HashRouter, NavLink } from 'react-router-dom';
+import { BrowserRouter, HashRouter, NavLink, Route } from 'react-router-dom';
 import CartContext from '../tools/cartcontext';
 import FFMenuContext from '../tools/ffmenucontext';
 
 import '../scss/header.scss';
+
+
+/**
+ * Define the nav block component
+ */
+const NavBlock = (props)=> {
+
+    console.log(props.is4Mobile);
+    const _className = "nav " + ((props.is4Mobile)? "nav-main-mobile" : "nav-main"),
+          _id = (props.is4Mobile)? "nav-main-mobile" : "nav-main";
+
+    return(
+        <ul className={_className}>
+            <li>
+                <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+                <NavLink to="/about-us">About Us</NavLink>
+            </li>
+            <li>
+                <NavLink to="/contact">Contact</NavLink>  
+            </li>
+        </ul>
+    )
+}
+
+
 
 class Header extends React.Component{
     static contextType = CartContext;
@@ -77,19 +104,9 @@ class Header extends React.Component{
                                     {/* START col nav */}
                                     <div className="col-md-7">
                                         <nav className="module module-navigation left mr-4">
-                                        <HashRouter>
-                                            <ul id="nav-main" className="nav nav-main">
-                                                <li>
-                                                    <NavLink to="/">Home</NavLink>
-                                                </li>
-                                                <li>
-                                                    <NavLink to="/about-us">About Us</NavLink>
-                                                </li>
-                                                <li>
-                                                    <NavLink to="/contact">Contact</NavLink>  
-                                                </li>
-                                            </ul>
-                                        </HashRouter>
+                                        
+                                            <NavBlock is4Mobile={false} />
+                                        
                                         </nav>
                                     </div>
 
@@ -139,15 +156,19 @@ class Header extends React.Component{
                         <nav id="panel-mobile" className={(this.state.isMobilePanelShown) ? 'show':''}>
                             <div className="module module-logo bg-dark dark">
                                 <h1>KOKORO</h1>
+
                                 <button className="close"
                                     onClick={() => this.handleCloseMobilePanel(ffmenucontext)}
                                 >
                                     <i className="ti ti-close"></i>
                                 </button>
                             </div>
-                            <nav className="module module-navigation">
 
+                            {/** START mobile nav items */}
+                            <nav className="module module-navigation">
+                                <NavBlock is4Mobile={true} />
                             </nav>
+                            
                             <div className="module module-social">
                                 <h6 className="text-sm mb-3">Follow Us!</h6>
                                 <a href="#" className="icon icon-social icon-circle icon-sm icon-facebook">
@@ -159,12 +180,6 @@ class Header extends React.Component{
                                 <a href="#" className="icon icon-social icon-circle icon-sm icon-twitter">
                                     <i className="fa fa-twitter"></i>
                                 </a>
-                                {/* <a href="#" className="icon icon-social icon-circle icon-sm icon-youtube">
-                                    <i class="fa fa-youtube"></i>
-                                </a>
-                                <a href="#" className="icon icon-social icon-circle icon-sm icon-instagram">
-                                    <i class="fa fa-instagram"></i>
-                                </a> */}
                             </div>
                         </nav>
                         </>
