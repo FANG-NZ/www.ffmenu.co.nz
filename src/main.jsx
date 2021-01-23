@@ -14,6 +14,7 @@ import NotFoundPage from './pages/notfoundpage';
 
 import CartPanel from './components/cartpanel';
 import BodyOverlay from './components/bodyoverlay';
+import MealPopup from './components/mealpopup';
 
 
 const data = [
@@ -107,9 +108,15 @@ const data = [
 
 class Main extends Component{
 
+    constructor(props){
+        super(props);
+
+        this.mealpopupRef = React.createRef();
+    }
+
     render(){
         return (
-            <FFMenuContextProvider>
+            <FFMenuContextProvider mealPopup={this.mealpopupRef}>
             <CartProvider>
 
                 {/** Add Browser Router */}
@@ -129,10 +136,15 @@ class Main extends Component{
                     <Footer />
                 </div>
                 
+                {/** Add Cart Panel */}
                 <CartPanel />
+
+                {/** Add Meal Popup */}
+                <MealPopup ref={this.mealpopupRef} />
                 
                 {/** Add body overlay here */}
                 <BodyOverlay />
+
                 </BrowserRouter>
 
             </CartProvider>

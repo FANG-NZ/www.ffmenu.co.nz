@@ -10,32 +10,6 @@ import '../scss/homepage.scss';
 
 export default class HomePage extends Component{
 
-    constructor(props){
-        super(props);
-
-        //create meal popup ref
-        this.mealpopupRef = React.createRef();
-        //To bind THIS into openMealPopup
-        this.openMealPopup = this.openMealPopup.bind(this);
-    }
-
-    //Function is to open meal popup
-    openMealPopup(data){
-
-        //call meal popup method
-        this.mealpopupRef.current.open(data);
-    }
-
-    //defien the component mount
-    componentDidMount(){
-        // const _test = {
-        //     id: 1,
-        //     name: 'THIS IS TESTING',
-        //     description: "item, anything, good item"
-        // };
-        // this.mealpopupRef.current.open(_test);
-    }
-
     render(){
         const _data = this.props.catalogs;
 
@@ -99,7 +73,7 @@ export default class HomePage extends Component{
                             
                             {this.props.catalogs.map(
                                 (value, index) => {
-                                    return <CatalogBlock key={value.id} catalog={value} onMealClicked={this.openMealPopup}/>;
+                                    return <CatalogBlock key={value.id} catalog={value} />;
                                 }
                             )}
                             
@@ -109,8 +83,6 @@ export default class HomePage extends Component{
                 </div>
             </div>
             </StickyContainer>
-
-            <MealPopup ref={this.mealpopupRef} />
             </>   
         );
     }
