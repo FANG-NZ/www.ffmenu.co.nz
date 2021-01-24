@@ -3,11 +3,37 @@ import {Link as ScrollLink} from 'react-scroll';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CatalogBlock from '../components/catalogblock';
+import CartContext from '../tools/cartcontext';
 
 import '../scss/homepage.scss';
 
 
 export default class HomePage extends Component{
+    static contextType = CartContext;
+
+    /**
+     * compontDidMount
+     * Function is to setup default data here
+     * for TESTING
+     */
+    componentDidMount(){
+        const _data = this.props.catalogs;
+        const _meal = _data[0].meals[0];
+
+        console.log(_meal);
+        //Try to add item into cart
+        this.context.addItemIntoCart(
+            {
+                qty: 2,
+                price_id: 1,
+                price: 8.5,
+                comments: ""
+            },
+            _meal
+        );
+    }
+
+
 
     render(){
         const _data = this.props.catalogs;

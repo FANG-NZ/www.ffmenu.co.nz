@@ -113,7 +113,9 @@ class Header extends React.Component{
                                         <a href="#" onClick={()=>this.handleOpenCartClicked(ffmenucontext)} className="module module-cart right">
                                             <span className="cart-icon">
                                                 <i className="ti ti-shopping-cart"></i>
-                                                <span className="notification">0</span>
+                                                <span className="notification">
+                                                    {this.context.getCartItemNumber()}
+                                                </span>
                                             </span>
                                             <span className="cart-value">
                                                 $<span className="value">0.00</span>

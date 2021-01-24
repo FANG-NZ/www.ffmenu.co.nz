@@ -133,7 +133,7 @@ export default class MealPopup extends Component{
         const {data, meal} = this.state;
 
         //call cart context to add new item
-        this.context.addItem(data, meal);
+        this.context.addItemIntoCart(data, meal);
 
         //To update cart info
         //close popup
