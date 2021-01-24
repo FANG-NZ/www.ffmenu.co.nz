@@ -41,14 +41,14 @@ export class FFMenuContextProvider extends Component{
     render(){
 
         const {children} = this.props;
-        const mealPopup = this.props.mealPopup;
+        const mealPopupRef = this.props.mealPopupRef;
         const {isBodyOverlayShown, bodyOverlayClicked} = this.state;
         const { showBodyOverlay, hideBodyOverlay} = this;
 
         return(
             <FFMenuContext.Provider
                 value={{
-                    mealPopup,
+                    mealPopupRef,
                     isBodyOverlayShown,
                     bodyOverlayClicked,
                     showBodyOverlay,

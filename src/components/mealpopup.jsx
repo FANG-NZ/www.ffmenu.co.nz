@@ -4,6 +4,8 @@ import {Modal} from  'react-bootstrap';
 import bgImage from '../images/modal-add.jpg'
 import '../scss/mealpopup.scss';
 
+import CartContext from '../tools/cartcontext';
+
 
 /**
  * This is for SVG 
@@ -32,7 +34,7 @@ class MealPriceBlock extends Component{
         const _data = this.props.price;
 
         return(
-            <div className="form-group">
+            <div className="form-group product-price-item">
                 <label className="custom-control custom-radio">
                     <input name="radio_size" type="radio" className="custom-control-input"
                         value={_data.id}
@@ -43,7 +45,8 @@ class MealPriceBlock extends Component{
                         <FFMSVG />
                     </span>
                     <span className="custom-control-description">
-                        {_data.unit} (${_data.price.toFixed(2)})
+                        <span className="unit">{_data.unit}</span> 
+                        <span className="price">(${_data.price.toFixed(2)})</span>
                     </span>
                 </label>
             </div>
@@ -60,6 +63,7 @@ class MealPriceBlock extends Component{
  * Meal Popup
  */
 export default class MealPopup extends Component{
+    static contextType = CartContext;
 
     //define the default state
     state = {
@@ -126,12 +130,14 @@ export default class MealPopup extends Component{
     onSubmit(e){
         e.preventDefault();
 
-        let _qty = this.state.data.qty;
+        const {data, meal} = this.state;
 
-        console.log(this.state.data);
+        //call cart context to add new item
+        this.context.addItem(data, meal);
 
-        alert("YES FORM SUBMIT QTY is " + _qty );
-
+        //To update cart info
+        //close popup
+        this.close();
     }
 
     render(){
@@ -216,11 +222,14 @@ export default class MealPopup extends Component{
                     {/** START comments box */}
                     <div className="panel-details panel-details-form">
                         <h5 className="panel-details-title">
-                            <span>Others</span>
+                            <span>Comments</span>
                             {/* <i className="ti ti-pencil action-icon"></i> */}
                         </h5>
                         <div id="panel-details-other" className="collapse show">                    
-                            <textarea cols="30" rows="4" className="form-control" 
+                            <textarea 
+                                cols="30" 
+                                rows="2" 
+                                className="form-control" 
                                 placeholder="Put this any other informations..." 
                                 value={_data.comments} 
                                 onChange={

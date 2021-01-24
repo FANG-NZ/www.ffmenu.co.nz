@@ -3,7 +3,6 @@ import {Link as ScrollLink} from 'react-scroll';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CatalogBlock from '../components/catalogblock';
-import MealPopup from '../components/mealpopup';
 
 import '../scss/homepage.scss';
 

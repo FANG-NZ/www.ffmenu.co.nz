@@ -111,12 +111,13 @@ class Main extends Component{
     constructor(props){
         super(props);
 
+        //define the meal popup ref
         this.mealpopupRef = React.createRef();
     }
 
     render(){
         return (
-            <FFMenuContextProvider mealPopup={this.mealpopupRef}>
+            <FFMenuContextProvider mealPopupRef={this.mealpopupRef}>
             <CartProvider>
 
                 {/** Add Browser Router */}

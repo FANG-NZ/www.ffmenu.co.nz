@@ -13,7 +13,7 @@ export class CartProvider extends React.Component{
     state = {
         isCartPanelShown: false,
         //main cart data
-        cart:{}
+        items:[]
     }
 
     constructor(props){
@@ -28,22 +28,36 @@ export class CartProvider extends React.Component{
         this.setState({isCartPanelShown : true});
     }
 
+    //To close cart panel
     closeCartPanel(){
         this.setState({isCartPanelShown : false});
+    }
+
+
+    /**
+     * Function is to add item into cart
+     * @param {object} info the cart item 
+     * @param {object} meal the meal object 
+     */
+    addItem(info, meal){
+
+        
+        console.log("YES CLICKED");
     }
 
 
     render(){
         const {children} = this.props;
         const {isCartPanelShown} = this.state;
-        const { openCartPanel, closeCartPanel } = this;
+        const { openCartPanel, closeCartPanel, addItem } = this;
 
         return(
             <CartContext.Provider
                 value={{
                     isCartPanelShown,
                     openCartPanel,
-                    closeCartPanel
+                    closeCartPanel,
+                    addItem
                 }}
             >
                 {children}

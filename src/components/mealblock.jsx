@@ -31,7 +31,7 @@ export default class MealBlock extends Component{
                                     onClick={
                                         ()=> {
                                             //call context mealpop open function
-                                            context.mealPopup.current.open({cart_item: null, meal: _data});
+                                            context.mealPopupRef.current.open({cart_item: null, meal: _data});
                                         }
                                     }
                                 >

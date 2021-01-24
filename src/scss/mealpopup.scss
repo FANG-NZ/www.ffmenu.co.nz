@@ -24,6 +24,24 @@
         }
     }
 
+
+    //START price block
+    .panel-details-size{
+
+        .product-price-item{
+            .custom-control-description{
+                display: flex;
+
+                .unit{width: 80px;}
+                .price{
+                    //opacity: 1;
+                    font-weight: bold;
+                }
+            }
+        }
+
+    }
+
     //START qty input
     .panel-details-qty{
         display: flex;
