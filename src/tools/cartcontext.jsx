@@ -24,6 +24,7 @@ export class CartProvider extends React.Component{
 
         this.isCartEmpty = this.isCartEmpty.bind(this);
         this.getCartItemNumber = this.getCartItemNumber.bind(this);
+        this.getCartTotal = this.getCartTotal.bind(this);
         this.addItemIntoCart = this.addItemIntoCart.bind(this);
     }
 
@@ -54,7 +55,16 @@ export class CartProvider extends React.Component{
     getCartTotal(){
         let _total = 0;
 
+        if(this.isCartEmpty()){
+            return _total;
+        }
 
+        const _items = this.state.items;
+        for(let i=0; i < _items.length; i++){
+            _total += _items[i].cart_item.price * _items[i].cart_item.qty
+        }
+
+        return _total;
     }
 
     /**
@@ -71,26 +81,33 @@ export class CartProvider extends React.Component{
         });
 
         this.setState({items: _items});
-        
-        console.log("YES CLICKED");
     }
 
 
     render(){
         const {children} = this.props;
-        const {isCartPanelShown} = this.state;
-        const { openCartPanel, closeCartPanel, isCartEmpty, getCartItemNumber,  addItemIntoCart } = this;
+        const {isCartPanelShown, items} = this.state;
+        const { 
+            openCartPanel, 
+            closeCartPanel, 
+            isCartEmpty, 
+            getCartItemNumber,  
+            addItemIntoCart, 
+            getCartTotal } = this;
 
         return(
             <CartContext.Provider
                 value={{
                     isCartPanelShown,
+                    items,
+
                     openCartPanel,
                     closeCartPanel,
 
                     isCartEmpty,
                     getCartItemNumber,
-                    addItemIntoCart
+                    addItemIntoCart,
+                    getCartTotal
                 }}
             >
                 {children}

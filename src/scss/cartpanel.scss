@@ -1,0 +1,30 @@
+// This is to modilfy the style of cart panel
+// ------------------------------------------
+#panel-cart{
+
+    .cart-table{
+
+        tr{
+            display: flex;
+            //align-items: center;
+
+            td,th{
+                display: block;
+            }
+        }
+
+        td,th{
+            padding: 1rem;
+        }
+
+        .title{
+            width: 200px;
+            .name{
+                text-overflow:ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
+}

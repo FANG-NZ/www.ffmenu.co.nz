@@ -118,7 +118,7 @@ class Header extends React.Component{
                                                 </span>
                                             </span>
                                             <span className="cart-value">
-                                                $<span className="value">0.00</span>
+                                                $<span className="value">{this.context.getCartTotal().toFixed(2)}</span>
                                             </span>
                                         </a>
                                     </div>

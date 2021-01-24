@@ -2,32 +2,49 @@ import React, {Component} from 'react';
 import CartContext from '../tools/cartcontext';
 import FFMenuContext from '../tools/ffmenucontext';
 
+import '../scss/cartpanel.scss';
+
 /**
  * define the cart info block
  */
-const CartInfoBlock = () => {
+const CartInfoBlock = (props) => {
+    const _cartContext = props.cartContext,
+          _ffContext = props.ffContext;
 
     return(
         <table className="cart-table">
             <tbody>
-            <tr>
-                <td className="title">
-                    <span className="name">
-                        <a href="#product-modal" data-toggle="modal">Beef Burger</a>
-                    </span>
-                    <span className="caption text-muted">Large (500g)</span>
-                </td>
-                <td className="price">$9.00</td>
-                <td className="actions">
-                    <a href="#product-modal" data-toggle="modal" className="action-icon">
-                        <i className="ti ti-pencil"></i>
-                    </a>
-                    <a href="#" className="action-icon">
-                        <i className="ti ti-close"></i>
-                    </a>
-                </td>
-            </tr>
-            <tr>
+                {_cartContext.items.map(
+                    (value) => {
+                        const _meal = value.meal,
+                              _info = value.cart_item;
+
+                        return(
+                            <tr key={_meal.id}>
+                                <td className="title">
+                                    <span className="name">
+                                        <a href="#product-modal" 
+                                            onClick={() => _ffContext.mealPopupRef.current.open(value)}>
+                                            {_meal.name}
+                                        </a>
+                                    </span>
+                                    <span className="caption text-muted">Large (500g)</span>
+                                </td>
+                                <td className="price">${_info.price.toFixed(2)} X ({_info.qty})</td>
+                                <td className="actions">
+                                    <a href="#product-modal" data-toggle="modal" className="action-icon">
+                                        <i className="ti ti-pencil"></i>
+                                    </a>
+                                    <a href="#" className="action-icon">
+                                        <i className="ti ti-close"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        )
+                    }
+                )}
+            
+            {/* <tr>
                 <td className="title">
                     <span className="name">
                         <a href="#product-modal" data-toggle="modal">Extra Burger</a>
@@ -43,7 +60,7 @@ const CartInfoBlock = () => {
                         <i className="ti ti-close"></i>
                     </a>
                 </td>
-            </tr>
+            </tr> */}
             </tbody>
         </table>
     )
@@ -53,7 +70,7 @@ const CartInfoBlock = () => {
  * START
  * define the cart summary block
  */
-const CartSummaryBlock = () => {
+const CartSummaryBlock = (props) => {
 
     return(
         <div className="cart-summary">
@@ -73,7 +90,11 @@ const CartSummaryBlock = () => {
             <div className="row text-lg">
                 <div className="col-7 text-right text-muted">Total:</div>
                 <div className="col-5">
-                    <strong>$<span className="cart-total">0.00</span></strong>
+                    <strong>
+                        $<span className="cart-total">
+                            {props.cartContext.getCartTotal().toFixed(2)}
+                        </span>
+                    </strong>
                 </div>
             </div>
         </div>
@@ -106,8 +127,6 @@ export default class CartPanel extends  Component{
 
     componentDidMount(){
         
-
-
     }
 
     render(){
@@ -141,8 +160,8 @@ export default class CartPanel extends  Component{
                                             {cartcontext.isCartEmpty()
                                                 ? <CartEmptyBlock />
                                                 : <>
-                                                    <CartInfoBlock />
-                                                    <CartSummaryBlock />
+                                                    <CartInfoBlock cartContext={cartcontext} ffContext={ffmenucontext}/>
+                                                    <CartSummaryBlock cartContext={cartcontext} />
                                                   </>
                                             }
                                             
