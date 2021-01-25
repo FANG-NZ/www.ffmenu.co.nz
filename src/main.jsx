@@ -10,6 +10,7 @@ import {FFMenuContextProvider} from './tools/ffmenucontext';
 import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
+import CheckoutPage from './pages/checkoutpage';
 import NotFoundPage from './pages/notfoundpage';
 
 import CartPanel from './components/cartpanel';
@@ -132,6 +133,7 @@ class Main extends Component{
                         <Route exact path="/about-us" component={ AboutUsPage }/>
                         <Route exact path="/contact" component={ ContactPage }/>    
 
+                        <Route exact path="/checkout" component={ CheckoutPage }/>    
                         <Route component={ NotFoundPage } />                            
                     </Switch>
                     

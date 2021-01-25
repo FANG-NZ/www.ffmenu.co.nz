@@ -35,7 +35,6 @@ export default class HomePage extends Component{
     }
 
 
-
     render(){
         const _data = this.props.catalogs;
 

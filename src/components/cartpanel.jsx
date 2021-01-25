@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 import CartContext from '../tools/cartcontext';
 import FFMenuContext from '../tools/ffmenucontext';
 
@@ -121,7 +122,7 @@ const CartEmptyBlock = () => {
  * START
  * the cart panel component
  */
-export default class CartPanel extends  Component{
+class CartPanel extends  Component{
 
     componentDidMount(){
         //component did mount
@@ -165,8 +166,20 @@ export default class CartPanel extends  Component{
                                             
                                         </div>
                                     </div>
-        
-                                    <a href="#test" className="panel-cart-action btn btn-secondary btn-block btn-lg">
+                                            
+                                    {/* <NavLink to="/checkout" className="panel-cart-action btn btn-secondary btn-block btn-lg">
+                                        <span>Go to checkout</span>
+                                    </NavLink> */}
+                                    <a href="/checkout" className="panel-cart-action btn btn-secondary btn-block btn-lg"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+
+                                            cartcontext.closeCartPanel();
+                                            ffmenucontext.hideBodyOverlay();
+
+                                            this.props.history.push("/checkout");
+                                        }}
+                                    >
                                         <span>Go to checkout</span>
                                     </a>
                                 </div>   
@@ -179,3 +192,5 @@ export default class CartPanel extends  Component{
     }
 
 }
+
+export default withRouter(CartPanel);

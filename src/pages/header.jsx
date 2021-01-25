@@ -110,7 +110,7 @@ class Header extends React.Component{
 
                                     {/** START col cart */}
                                     <div className="col-md-2">
-                                        <a href="#" 
+                                        <a href="#open-cartpanel" 
                                             onClick={(e)=>{
                                                 e.preventDefault();
                                                 this.handleOpenCartClicked(ffmenucontext)}
@@ -136,7 +136,7 @@ class Header extends React.Component{
                         {/** START mobile header */}
                         <header id="header-mobile" className="light">
                             <div className="module module-nav-toggle">
-                                <a href="#" id="nav-toggle" 
+                                <a href="#open-leftpanel" id="nav-toggle" 
                                     onClick={ (e)=> {
                                         e.preventDefault();
                                         this.handleOpenMobilePanelClicked(ffmenucontext)
