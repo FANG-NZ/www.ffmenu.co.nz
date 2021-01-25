@@ -30,8 +30,8 @@ export default class MealBlock extends Component{
                                 <button className="btn btn-outline-secondary btn-sm" 
                                     onClick={
                                         ()=> {
-                                            //call context mealpop open function
-                                            context.mealPopupRef.current.open({cart_item: null, meal: _mealObj});
+                                            //call context mealpop open function with meal object
+                                            context.mealPopupRef.current.open(_mealObj);
                                         }
                                     }
                                 >

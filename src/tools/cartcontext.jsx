@@ -28,6 +28,7 @@ export class CartProvider extends React.Component{
         this.addItemIntoCart = this.addItemIntoCart.bind(this);
         this.removeItemFromCart = this.removeItemFromCart.bind(this);
         this.ifItemExists = this.ifItemExists.bind(this);
+        this.getCartItemFromCart = this.getCartItemFromCart.bind(this);
     }
 
     //To open cart panel
@@ -122,6 +123,21 @@ export class CartProvider extends React.Component{
 
 
     /**
+     * Function is to get cart item info from
+     * cart items
+     * @param {meal id} _id 
+     */
+    getCartItemFromCart(_id){
+        const _index = this.findItemIndexFromCart(_id);
+
+        if(_index > -1){
+            return this.state.items[_index].cart_item;
+        }
+        console.error("Error, trying to find item with[" + _index + "] from items array");
+    }
+
+
+    /**
      * Function is tpo remove item from cart
      * @param {meal id} _id 
      */
@@ -129,7 +145,7 @@ export class CartProvider extends React.Component{
         let _items = this.state.items;
 
         //Try to find the item from list
-        const  _foundIndex = this.findItemFromCart(_id);
+        const  _foundIndex = this.findItemIndexFromCart(_id);
 
         if(_foundIndex > -1){
             //To remove item from list
@@ -155,7 +171,8 @@ export class CartProvider extends React.Component{
             addItemIntoCart, 
             getCartTotal,
             removeItemFromCart,
-            ifItemExists } = this;
+            ifItemExists,
+            getCartItemFromCart } = this;
 
         return(
             <CartContext.Provider
@@ -171,7 +188,8 @@ export class CartProvider extends React.Component{
                     addItemIntoCart,
                     getCartTotal,
                     removeItemFromCart,
-                    ifItemExists
+                    ifItemExists,
+                    getCartItemFromCart
                 }}
             >
                 {children}

@@ -87,30 +87,26 @@ export default class MealPopup extends Component{
         this.onPriceSlected = this.onPriceSlected.bind(this);
     }
 
-    //define the functions
     /**
-     * 
-     * @param {array} data
+     * Function is to open popup
+     * @param {meal object} _meal
      * cart & meal info 
      */
-    open = (data) => {
+    open = (_meal) => {
 
-        //check if there is CART info passed
-        //YES, we handle this for UPDATE
-        //otherwise, this is ADD NEW
-        if(data.cart_item){
-            this.setState({ data: data.cart_item });
+        //To check if item has been added into cart
+        const _is4AddNew = !this.context.ifItemExists(_meal.id);
+      
+        if(!_is4AddNew){
+            const _cartItem = this.context.getCartItemFromCart(_meal.id);
+
+            this.setState({ data: _cartItem });
         }
-
-        //To check if item has been added
-        const _is4AddNew = !this.context.ifItemExists(data.meal.id);
-
-// console.log(_is4AddNew);
 
         this.setState({ 
             isOpen: true, 
             is4AddNew: _is4AddNew, 
-            meal: data.meal 
+            meal: _meal
         });
     }
 

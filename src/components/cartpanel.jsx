@@ -33,7 +33,7 @@ const CartInfoBlock = (props) => {
                                 <td className="title">
                                     <span className="name">
                                         <a href="#open-popup" 
-                                            onClick={(e) => handleOpenPopup(e, value)}
+                                            onClick={(e) => handleOpenPopup(e, _meal)}
                                         >
                                             {_meal.name}
                                         </a>
@@ -43,7 +43,7 @@ const CartInfoBlock = (props) => {
                                 <td className="price">${_info.price.toFixed(2)} X ({_info.qty})</td>
                                 <td className="actions">
                                     <a href="#open-popup" className="action-icon"
-                                        onClick={(e) => handleOpenPopup(e, value)}
+                                        onClick={(e) => handleOpenPopup(e, _meal)}
                                     >
                                         <i className="ti ti-pencil"></i>
                                     </a>
