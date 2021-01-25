@@ -110,7 +110,13 @@ class Header extends React.Component{
 
                                     {/** START col cart */}
                                     <div className="col-md-2">
-                                        <a href="#" onClick={()=>this.handleOpenCartClicked(ffmenucontext)} className="module module-cart right">
+                                        <a href="#" 
+                                            onClick={(e)=>{
+                                                e.preventDefault();
+                                                this.handleOpenCartClicked(ffmenucontext)}
+                                            } 
+                                            className="module module-cart right"
+                                        >
                                             <span className="cart-icon">
                                                 <i className="ti ti-shopping-cart"></i>
                                                 <span className="notification">
@@ -131,7 +137,10 @@ class Header extends React.Component{
                         <header id="header-mobile" className="light">
                             <div className="module module-nav-toggle">
                                 <a href="#" id="nav-toggle" 
-                                    onClick={ ()=> this.handleOpenMobilePanelClicked(ffmenucontext)}
+                                    onClick={ (e)=> {
+                                        e.preventDefault();
+                                        this.handleOpenMobilePanelClicked(ffmenucontext)
+                                    }}
                                 >
                                     <span></span>
                                     <span></span>
@@ -145,9 +154,14 @@ class Header extends React.Component{
                             </div>
 
                             <a href="#" className="module module-cart" 
-                                onClick={()=> this.handleOpenCartClicked(ffmenucontext)}>
+                                onClick={(e)=> {
+                                    e.preventDefault();
+                                    this.handleOpenCartClicked(ffmenucontext)
+                                }}>
                                 <i className="ti ti-shopping-cart"></i>
-                                <span className="notification" data-cart-qty>2</span>
+                                <span className="notification" data-cart-qty>
+                                    {this.context.getCartItemNumber()}
+                                </span>
                             </a>
                         </header>
 

@@ -14,16 +14,20 @@
         }
 
         td,th{
-            padding: 1rem;
+            padding: .85rem;
         }
 
         .title{
-            width: 200px;
+            width: 190px;
             .name{
                 text-overflow:ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
             }
+        }
+
+        .price{
+            width: 100px;
         }
     }
 

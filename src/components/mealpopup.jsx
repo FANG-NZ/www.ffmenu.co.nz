@@ -135,7 +135,6 @@ export default class MealPopup extends Component{
     //define the form onSubmit function
     onSubmit(e){
         e.preventDefault();
-
         const {data, meal} = this.state;
 
         //call cart context to add new item
@@ -150,9 +149,10 @@ export default class MealPopup extends Component{
         const _meal = this.state.meal;
         let  _data = this.state.data;
 
-        
+        //here is to setup default price value
         if(_data.price_id === 0 && "prices" in _meal){
             _data.price_id = _meal.prices[0].id;
+            _data.unit = _meal.prices[0].unit;
             _data.price = _meal.prices[0].price;
         }
 

@@ -26,6 +26,7 @@ export class CartProvider extends React.Component{
         this.getCartItemNumber = this.getCartItemNumber.bind(this);
         this.getCartTotal = this.getCartTotal.bind(this);
         this.addItemIntoCart = this.addItemIntoCart.bind(this);
+        this.removeItemFromCart = this.removeItemFromCart.bind(this);
     }
 
     //To open cart panel
@@ -100,8 +101,30 @@ export class CartProvider extends React.Component{
      */
     findItemFromCart(_id){
         const _index = this.state.items.findIndex(x => x.mid === _id);
-        console.log("INDEX id " + _index);
         return _index;
+    }
+
+
+    /**
+     * Function is tpo remove item from cart
+     * @param {meal id} _id 
+     */
+    removeItemFromCart(_id){
+        let _items = this.state.items;
+
+        //Try to find the item from list
+        const  _foundIndex = this.findItemFromCart(_id);
+
+        if(_foundIndex > -1){
+            //To remove item from list
+            _items.splice(_foundIndex, 1);
+
+            //Update state
+            this.setState({items: _items});
+        }
+        else{
+            console.log("WARNING, there is ITEM found in the list [" + _id + "]");
+        }
     }
 
 
@@ -114,7 +137,8 @@ export class CartProvider extends React.Component{
             isCartEmpty, 
             getCartItemNumber,  
             addItemIntoCart, 
-            getCartTotal } = this;
+            getCartTotal,
+            removeItemFromCart } = this;
 
         return(
             <CartContext.Provider
@@ -128,7 +152,8 @@ export class CartProvider extends React.Component{
                     isCartEmpty,
                     getCartItemNumber,
                     addItemIntoCart,
-                    getCartTotal
+                    getCartTotal,
+                    removeItemFromCart
                 }}
             >
                 {children}

@@ -23,8 +23,11 @@ const CartInfoBlock = (props) => {
                             <tr key={_meal.id}>
                                 <td className="title">
                                     <span className="name">
-                                        <a href="#open" 
-                                            onClick={() => _ffContext.mealPopupRef.current.open(value)}
+                                        <a href="#open-popup" 
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                _ffContext.mealPopupRef.current.open(value);
+                                            }}
                                         >
                                             {_meal.name}
                                         </a>
@@ -33,10 +36,15 @@ const CartInfoBlock = (props) => {
                                 </td>
                                 <td className="price">${_info.price.toFixed(2)} X ({_info.qty})</td>
                                 <td className="actions">
-                                    <a href="#product-modal" data-toggle="modal" className="action-icon">
+                                    {/* <a href="#product-modal" data-toggle="modal" className="action-icon">
                                         <i className="ti ti-pencil"></i>
-                                    </a>
-                                    <a href="#" className="action-icon">
+                                    </a> */}
+                                    <a href="#remove" className="action-icon" 
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            _cartContext.removeItemFromCart(_meal.id);
+                                        }}
+                                    >
                                         <i className="ti ti-close"></i>
                                     </a>
                                 </td>
