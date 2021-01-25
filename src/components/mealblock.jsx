@@ -4,8 +4,8 @@ import FFMenuContext from '../tools/ffmenucontext';
 export default class MealBlock extends Component{
 
     render(){
-        const _data = this.props.meal,
-              _prices = _data.prices;
+        const _mealObj = this.props.meal,
+              _prices = _mealObj.prices;
 
 
         return(
@@ -15,8 +15,8 @@ export default class MealBlock extends Component{
                     <div className="menu-item menu-list-item">
                         <div className="row align-items-center">
                             <div className="col-sm-6 mb-2 mb-sm-0">
-                                <h6 className="mb-0">{_data.name}</h6>
-                                <span className="text-muted text-sm">{_data.description}</span>
+                                <h6 className="mb-0">{_mealObj.name}</h6>
+                                <span className="text-muted text-sm">{_mealObj.description}</span>
                             </div>
                             <div className="col-sm-6 text-sm-right">
                                 <span className="text-md mr-4">
@@ -31,7 +31,7 @@ export default class MealBlock extends Component{
                                     onClick={
                                         ()=> {
                                             //call context mealpop open function
-                                            context.mealPopupRef.current.open({cart_item: null, meal: _data});
+                                            context.mealPopupRef.current.open({cart_item: null, meal: _mealObj});
                                         }
                                     }
                                 >

@@ -72,6 +72,7 @@ export default class MealPopup extends Component{
         data: {
             qty: 1,
             price_id: 0,
+            unit: "",
             price: 0,
             comments: ""
         },
@@ -109,6 +110,7 @@ export default class MealPopup extends Component{
             data: {
                 qty: 1,
                 price_id: 0,
+                unit: "",
                 price: 0,
                 comments: ""
             },
@@ -118,10 +120,14 @@ export default class MealPopup extends Component{
 
     //defien the price radio button clicked
     onPriceSlected(e, object){
-        let _value = e.target.value,
-            _data = this.state.data;
-            _data.price_id = _value;
-            _data.price = object.price;
+        const _value = e.target.value;
+
+        let _data = this.state.data;
+
+        //To update price info
+        _data.price_id = _value;
+        _data.unit = object.unit;
+        _data.price = object.price;
 
         this.setState({data : _data});
     }
@@ -190,10 +196,12 @@ export default class MealPopup extends Component{
 
                                 {'prices' in _meal && _meal.prices.map(
                                     (value) => {
-                                        return <MealPriceBlock key={value.id} 
-                                                isSlected={(_data.price_id === value.id)?true:false}
-                                                price={value} 
-                                                onPriceClicked={(e, object) => this.onPriceSlected(e, object)} />
+                                        return <MealPriceBlock 
+                                                    key={value.id} 
+                                                    isSlected={(_data.price_id == value.id)?true:false}
+                                                    price={value} 
+                                                    onPriceClicked={(e, object) => this.onPriceSlected(e, object)} 
+                                                />
                                     }
                                 )}
                                 

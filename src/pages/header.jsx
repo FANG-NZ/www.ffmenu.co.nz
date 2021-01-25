@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, HashRouter, NavLink, Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import CartContext from '../tools/cartcontext';
 import FFMenuContext from '../tools/ffmenucontext';
 

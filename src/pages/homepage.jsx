@@ -20,12 +20,13 @@ export default class HomePage extends Component{
         const _data = this.props.catalogs;
         const _meal = _data[0].meals[0];
 
-        console.log(_meal);
+        
         //Try to add item into cart
         this.context.addItemIntoCart(
             {
                 qty: 2,
                 price_id: 1,
+                unit: "5/pc(s)",
                 price: 8.5,
                 comments: ""
             },

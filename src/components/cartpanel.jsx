@@ -23,12 +23,13 @@ const CartInfoBlock = (props) => {
                             <tr key={_meal.id}>
                                 <td className="title">
                                     <span className="name">
-                                        <a href="#product-modal" 
-                                            onClick={() => _ffContext.mealPopupRef.current.open(value)}>
+                                        <a href="#open" 
+                                            onClick={() => _ffContext.mealPopupRef.current.open(value)}
+                                        >
                                             {_meal.name}
                                         </a>
                                     </span>
-                                    <span className="caption text-muted">Large (500g)</span>
+                                    <span className="caption text-muted">{_info.unit}</span>
                                 </td>
                                 <td className="price">${_info.price.toFixed(2)} X ({_info.qty})</td>
                                 <td className="actions">
@@ -43,24 +44,6 @@ const CartInfoBlock = (props) => {
                         )
                     }
                 )}
-            
-            {/* <tr>
-                <td className="title">
-                    <span className="name">
-                        <a href="#product-modal" data-toggle="modal">Extra Burger</a>
-                    </span>
-                    <span className="caption text-muted">Small (200g)</span>
-                </td>
-                <td className="price text-success">$9.00</td>
-                <td className="actions">
-                    <a href="#product-modal" data-toggle="modal" className="action-icon">
-                        <i className="ti ti-pencil"></i>
-                    </a>
-                    <a href="#" className="action-icon">
-                        <i className="ti ti-close"></i>
-                    </a>
-                </td>
-            </tr> */}
             </tbody>
         </table>
     )
@@ -124,9 +107,8 @@ const CartEmptyBlock = () => {
  */
 export default class CartPanel extends  Component{
 
-
     componentDidMount(){
-        
+        //component did mount
     }
 
     render(){

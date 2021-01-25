@@ -75,12 +75,33 @@ export class CartProvider extends React.Component{
     addItemIntoCart(info, meal){
         let _items = this.state.items;
 
-        _items.push({
-            cart_item:info,
-            meal: meal
-        });
+        //Try to find the item from list
+        const  _foundIndex = this.findItemFromCart(meal.id);
+
+        if(_foundIndex >= 0){
+
+            //To update current cart item
+            _items[_foundIndex].cart_item = info;
+        }
+        else{
+            _items.push({
+                mid: meal.id,
+                cart_item:info,
+                meal: meal
+            });
+        }
 
         this.setState({items: _items});
+    }
+
+    /**
+     * Function is to find if item exists, if YES return the object
+     * @param {meal id} _id 
+     */
+    findItemFromCart(_id){
+        const _index = this.state.items.findIndex(x => x.mid === _id);
+        console.log("INDEX id " + _index);
+        return _index;
     }
 
 
