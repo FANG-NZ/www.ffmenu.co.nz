@@ -11,6 +11,15 @@ const CartInfoBlock = (props) => {
     const _cartContext = props.cartContext,
           _ffContext = props.ffContext;
 
+    /**
+     * Function is to handle open popup clicked
+     * @param {cart item object} _cartItem 
+     */
+    function handleOpenPopup(e, _cartItem){
+        e.preventDefault();
+        _ffContext.mealPopupRef.current.open(_cartItem);
+    }
+
     return(
         <table className="cart-table">
             <tbody>
@@ -24,10 +33,7 @@ const CartInfoBlock = (props) => {
                                 <td className="title">
                                     <span className="name">
                                         <a href="#open-popup" 
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                _ffContext.mealPopupRef.current.open(value);
-                                            }}
+                                            onClick={(e) => handleOpenPopup(e, value)}
                                         >
                                             {_meal.name}
                                         </a>
@@ -36,9 +42,11 @@ const CartInfoBlock = (props) => {
                                 </td>
                                 <td className="price">${_info.price.toFixed(2)} X ({_info.qty})</td>
                                 <td className="actions">
-                                    {/* <a href="#product-modal" data-toggle="modal" className="action-icon">
+                                    <a href="#open-popup" className="action-icon"
+                                        onClick={(e) => handleOpenPopup(e, value)}
+                                    >
                                         <i className="ti ti-pencil"></i>
-                                    </a> */}
+                                    </a>
                                     <a href="#remove" className="action-icon" 
                                         onClick={(e) => {
                                             e.preventDefault();

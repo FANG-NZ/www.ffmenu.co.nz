@@ -18,7 +18,7 @@
         }
 
         .title{
-            width: 190px;
+            width: 55%;
             .name{
                 text-overflow:ellipsis;
                 overflow: hidden;
@@ -27,7 +27,12 @@
         }
 
         .price{
-            width: 100px;
+            width: 27%;
+            line-height: 32px;
+        }
+        .actions{
+            width: 18%;
+            line-height: 32px;
         }
     }
 

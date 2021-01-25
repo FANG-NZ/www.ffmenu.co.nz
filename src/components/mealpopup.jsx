@@ -68,6 +68,7 @@ export default class MealPopup extends Component{
     //define the default state
     state = {
         isOpen: false,
+        is4AddNew: true,
         
         data: {
             qty: 1,
@@ -101,12 +102,25 @@ export default class MealPopup extends Component{
             this.setState({ data: data.cart_item });
         }
 
-        this.setState({ isOpen: true, meal: data.meal });
+        //To check if item has been added
+        const _is4AddNew = !this.context.ifItemExists(data.meal.id);
+
+// console.log(_is4AddNew);
+
+        this.setState({ 
+            isOpen: true, 
+            is4AddNew: _is4AddNew, 
+            meal: data.meal 
+        });
     }
 
+    /**
+     * Function is to handle close popup
+     */
     close = () => {
         this.setState({ 
             isOpen: false, 
+            is4AddNew: true,
             data: {
                 qty: 1,
                 price_id: 0,
@@ -147,10 +161,11 @@ export default class MealPopup extends Component{
 
     render(){
         const _meal = this.state.meal;
-        let  _data = this.state.data;
-
+        let   _data = this.state.data;
+        
         //here is to setup default price value
-        if(_data.price_id === 0 && "prices" in _meal){
+        //if(_data.price_id === 0 && "prices" in _meal){
+        if(this.state.is4AddNew && "prices" in _meal){
             _data.price_id = _meal.prices[0].id;
             _data.unit = _meal.prices[0].unit;
             _data.price = _meal.prices[0].price;
@@ -255,7 +270,9 @@ export default class MealPopup extends Component{
 
                 {/** START button */}
                 <button type="submit" className="modal-btn btn btn-secondary btn-block btn-lg">
-                    <span>Add to Cart</span>
+                    <span>
+                        { this.state.is4AddNew ? 'Add To Cart' : 'Update Cart'} 
+                    </span>
                 </button>           
             </form>
             </Modal>

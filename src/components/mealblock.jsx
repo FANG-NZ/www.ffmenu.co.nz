@@ -35,20 +35,6 @@ export default class MealBlock extends Component{
                                         }
                                     }
                                 >
-                                {/* <button className="btn btn-outline-secondary btn-sm" 
-                                    onClick={()=> this.props.onMealClicked({cart_item: null, meal: _data})}
-                                > */}
-                                {/* <button className="btn btn-outline-secondary btn-sm" 
-                                    onClick={()=> this.props.onMealClicked({
-                                        cart_item: {
-                                            qty: 2,
-                                            price_id: 2,
-                                            price: 19.99,
-                                            comments: "Test line here"
-                                        }, 
-                                        meal: _data
-                                    })}
-                                > */}
                                     <span>Add to cart</span>
                                 </button>
                             </div>

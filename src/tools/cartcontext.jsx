@@ -27,6 +27,7 @@ export class CartProvider extends React.Component{
         this.getCartTotal = this.getCartTotal.bind(this);
         this.addItemIntoCart = this.addItemIntoCart.bind(this);
         this.removeItemFromCart = this.removeItemFromCart.bind(this);
+        this.ifItemExists = this.ifItemExists.bind(this);
     }
 
     //To open cart panel
@@ -77,7 +78,7 @@ export class CartProvider extends React.Component{
         let _items = this.state.items;
 
         //Try to find the item from list
-        const  _foundIndex = this.findItemFromCart(meal.id);
+        const  _foundIndex = this.findItemIndexFromCart(meal.id);
 
         if(_foundIndex >= 0){
 
@@ -99,9 +100,24 @@ export class CartProvider extends React.Component{
      * Function is to find if item exists, if YES return the object
      * @param {meal id} _id 
      */
-    findItemFromCart(_id){
+    findItemIndexFromCart(_id){
         const _index = this.state.items.findIndex(x => x.mid === _id);
         return _index;
+    }
+
+    /**
+     * Function is to check if this item has been added
+     * into list(items)
+     * @param {meal id} _id 
+     * @returns {boolean}
+     */
+    ifItemExists(_id){
+        const _index = this.findItemIndexFromCart(_id);
+
+        if(_index > -1){
+            return true;
+        }
+        return false;
     }
 
 
@@ -138,7 +154,8 @@ export class CartProvider extends React.Component{
             getCartItemNumber,  
             addItemIntoCart, 
             getCartTotal,
-            removeItemFromCart } = this;
+            removeItemFromCart,
+            ifItemExists } = this;
 
         return(
             <CartContext.Provider
@@ -153,7 +170,8 @@ export class CartProvider extends React.Component{
                     getCartItemNumber,
                     addItemIntoCart,
                     getCartTotal,
-                    removeItemFromCart
+                    removeItemFromCart,
+                    ifItemExists
                 }}
             >
                 {children}
