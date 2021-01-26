@@ -3,6 +3,7 @@ import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CartContext from '../tools/cartcontext';
 import bannerImage from '../images/checkoutpage-bg.jpg'
+import '../scss/checkoutpage.scss';
 
 export default class CheckoutPage extends Component{
 

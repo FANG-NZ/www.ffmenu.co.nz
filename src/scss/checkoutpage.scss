@@ -1,2 +1,9 @@
 // This is to modilfy the style of checkout page
 // ---------------------------------------------
+.bg-image{
+    overflow: hidden;
+
+    img{
+        display: block !important;
+    }
+}
