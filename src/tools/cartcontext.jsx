@@ -16,11 +16,29 @@ export class CartProvider extends React.Component{
         items:[]
     }
 
+    //define the show cart panel
+    _canShowCartPanel = true
+
+    canShowCartPanel(){
+        return this._canShowCartPanel;
+    }
+
+    disableShowCartPanel = () => {
+        this.canShowCartPanel = false;
+    }
+
+    enableShowCartPanel = ()=> {
+        this.canShowCartPanel = true;
+    }
+
     constructor(props){
         super(props);
 
         this.openCartPanel = this.openCartPanel.bind(this);
         this.closeCartPanel = this.closeCartPanel.bind(this);
+        this.disableShowCartPanel = this.disableShowCartPanel.bind(this);
+        this.enableShowCartPanel = this.enableShowCartPanel.bind(this);
+        this.canShowCartPanel = this.canShowCartPanel.bind(this);
 
         this.isCartEmpty = this.isCartEmpty.bind(this);
         this.getCartItemNumber = this.getCartItemNumber.bind(this);
@@ -166,6 +184,10 @@ export class CartProvider extends React.Component{
         const { 
             openCartPanel, 
             closeCartPanel, 
+            disableShowCartPanel,
+            enableShowCartPanel,
+            canShowCartPanel,
+
             isCartEmpty, 
             getCartItemNumber,  
             addItemIntoCart, 
@@ -182,6 +204,9 @@ export class CartProvider extends React.Component{
 
                     openCartPanel,
                     closeCartPanel,
+                    disableShowCartPanel,
+                    enableShowCartPanel,
+                    canShowCartPanel,
 
                     isCartEmpty,
                     getCartItemNumber,

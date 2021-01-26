@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
-import {CartProvider} from './tools/cartcontext';
+import CartContext, {CartProvider} from './tools/cartcontext';
 import {FFMenuContextProvider} from './tools/ffmenucontext';
 
 import HomePage  from './pages/homepage';
@@ -107,55 +107,71 @@ const data = [
     }
 ];
 
-class Main extends Component{
+/**
+ * Create switch routes block
+ */
+const SwitchRouteBlock = () => {
+    //using cart context
+    const _cartContext = React.useContext(CartContext);
 
-    constructor(props){
-        super(props);
+    //using location
+    let _location = useLocation();
+    
+    React.useEffect(()=>{
+        console.log(_location);
+        if(_location.pathname === "/checkout"){
+            _cartContext.disableShowCartPanel();
+        }else{
+            _cartContext.enableShowCartPanel();
+        }
+    });
 
-        //define the meal popup ref
-        this.mealpopupRef = React.createRef();
-    }
+    return(
+        <Switch>
+            <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
+            <Route exact path="/about-us" component={ AboutUsPage }/>
+            <Route exact path="/contact" component={ ContactPage }/>    
+
+            <Route exact path="/checkout" component={ CheckoutPage }/>    
+            <Route component={ NotFoundPage } />                            
+        </Switch>
+    )
+}
 
 
-    render(){
-        return (
-            <FFMenuContextProvider mealPopupRef={this.mealpopupRef}>
-            <CartProvider>
 
-                {/** Add Browser Router */}
-                <BrowserRouter>
-                <Header />
+const Main = () => {
+
+    //define the meal popup ref
+    const _mealpopupRef = React.createRef();
+
+    
+    
+    return (
+        <FFMenuContextProvider mealPopupRef={_mealpopupRef}>
+        <CartProvider>
+
+            <Header />
+            
+            <div id="content">
                 
-                <div id="content">
-                    
-                    <Switch>
-                        <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
-                        <Route exact path="/about-us" component={ AboutUsPage }/>
-                        <Route exact path="/contact" component={ ContactPage }/>    
-
-                        <Route exact path="/checkout" component={ CheckoutPage }/>    
-                        <Route component={ NotFoundPage } />                            
-                    </Switch>
-                    
-                    <Footer />
-                </div>
+                <SwitchRouteBlock />
                 
-                {/** Add Cart Panel */}
-                <CartPanel />
+                <Footer />
+            </div>
+            
+            {/** Add Cart Panel */}
+            <CartPanel />
 
-                {/** Add Meal Popup */}
-                <MealPopup ref={this.mealpopupRef} />
-                
-                {/** Add body overlay here */}
-                <BodyOverlay />
+            {/** Add Meal Popup */}
+            <MealPopup ref={_mealpopupRef} />
+            
+            {/** Add body overlay here */}
+            <BodyOverlay />
 
-                </BrowserRouter>
-
-            </CartProvider>
-            </FFMenuContextProvider>
-        );
-    }
-
+        </CartProvider>
+        </FFMenuContextProvider>
+    );
 }
 
 export default Main;

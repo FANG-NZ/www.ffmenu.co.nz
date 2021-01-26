@@ -50,6 +50,13 @@ class Header extends React.Component{
      * clicked
      */
     handleOpenCartClicked(ffmenucontext){
+
+        
+        if(!this.context.canShowCartPanel){
+            console.log("CANNOT SHOW CART PANEL");
+            return;
+        }
+
         //call context function
         this.context.openCartPanel();
 
