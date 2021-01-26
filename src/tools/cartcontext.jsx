@@ -17,18 +17,18 @@ export class CartProvider extends React.Component{
     }
 
     //define the show cart panel
-    _canShowCartPanel = true
+    _showCartPanelState = true
 
     canShowCartPanel(){
-        return this._canShowCartPanel;
+        return this._showCartPanelState;
     }
 
     disableShowCartPanel = () => {
-        this.canShowCartPanel = false;
+        this._showCartPanelState = false;
     }
 
     enableShowCartPanel = ()=> {
-        this.canShowCartPanel = true;
+        this._showCartPanelState = true;
     }
 
     constructor(props){

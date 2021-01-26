@@ -118,7 +118,7 @@ const SwitchRouteBlock = () => {
     let _location = useLocation();
     
     React.useEffect(()=>{
-        console.log(_location);
+        //console.log(_location);
         if(_location.pathname === "/checkout"){
             _cartContext.disableShowCartPanel();
         }else{

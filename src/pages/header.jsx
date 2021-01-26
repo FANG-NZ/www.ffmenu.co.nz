@@ -52,7 +52,7 @@ class Header extends React.Component{
     handleOpenCartClicked(ffmenucontext){
 
         
-        if(!this.context.canShowCartPanel){
+        if(!this.context.canShowCartPanel()){
             console.log("CANNOT SHOW CART PANEL");
             return;
         }
