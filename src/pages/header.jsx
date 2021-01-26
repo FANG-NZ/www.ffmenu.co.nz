@@ -144,7 +144,7 @@ class Header extends React.Component{
                         <header id="header-mobile" className="light">
                             <div className="module module-nav-toggle">
                                 <a href="#open-leftpanel" id="nav-toggle" 
-                                    onClick={ (e)=> {
+                                    onClick={(e)=> {
                                         e.preventDefault();
                                         this.handleOpenMobilePanelClicked(ffmenucontext)
                                     }}
@@ -160,7 +160,7 @@ class Header extends React.Component{
                                 <h5>KOKORO SUSHI</h5>
                             </div>
 
-                            <a href="#" className="module module-cart" 
+                            <a href="#open-cartpanel" className="module module-cart" 
                                 onClick={(e)=> {
                                     e.preventDefault();
                                     this.handleOpenCartClicked(ffmenucontext)
@@ -192,13 +192,13 @@ class Header extends React.Component{
 
                             <div className="module module-social">
                                 <h6 className="text-sm mb-3">Follow Us!</h6>
-                                <a href="#" className="icon icon-social icon-circle icon-sm icon-facebook">
+                                <a href="#facebook" className="icon icon-social icon-circle icon-sm icon-facebook">
                                     <i className="fa fa-facebook"></i>
                                 </a>
-                                <a href="#" className="icon icon-social icon-circle icon-sm icon-google">
+                                <a href="#google" className="icon icon-social icon-circle icon-sm icon-google">
                                     <i className="fa fa-google"></i>
                                 </a>
-                                <a href="#" className="icon icon-social icon-circle icon-sm icon-twitter">
+                                <a href="#twitter" className="icon icon-social icon-circle icon-sm icon-twitter">
                                     <i className="fa fa-twitter"></i>
                                 </a>
                             </div>

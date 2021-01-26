@@ -209,7 +209,7 @@ export default class MealPopup extends Component{
                                     (value) => {
                                         return <MealPriceBlock 
                                                     key={value.id} 
-                                                    isSlected={(_data.price_id == value.id)?true:false}
+                                                    isSlected={(Number.parseInt(_data.price_id) === value.id)?true:false}
                                                     price={value} 
                                                     onPriceClicked={(e, object) => this.onPriceSlected(e, object)} 
                                                 />

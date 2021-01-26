@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation} from 'react-router-dom';
 
 import CartContext, {CartProvider} from './tools/cartcontext';
 import {FFMenuContextProvider} from './tools/ffmenucontext';
@@ -111,20 +111,30 @@ const data = [
  * Create switch routes block
  */
 const SwitchRouteBlock = () => {
-    //using cart context
-    const _cartContext = React.useContext(CartContext);
 
-    //using location
-    let _location = useLocation();
-    
-    React.useEffect(()=>{
-        //console.log(_location);
-        if(_location.pathname === "/checkout"){
-            _cartContext.disableShowCartPanel();
-        }else{
-            _cartContext.enableShowCartPanel();
+    let _location = useLocation(),
+        _className = "";
+
+    useEffect(()=>{
+
+        if(_className)
+            document.body.classList.remove(_className);
+            
+        switch (_location.pathname) {
+            case "/":
+                _className = "home-page";
+                break;
+
+            case "/checkout":
+                _className = "checkout-page";
+                break;
+        
+            default:
+                break;
         }
-    });
+        document.body.classList.add(_className);
+
+    })
 
     return(
         <Switch>
@@ -138,14 +148,12 @@ const SwitchRouteBlock = () => {
     )
 }
 
-
-
+/**
+ * defien the main component 
+ */
 const Main = () => {
-
     //define the meal popup ref
     const _mealpopupRef = React.createRef();
-
-    
     
     return (
         <FFMenuContextProvider mealPopupRef={_mealpopupRef}>
