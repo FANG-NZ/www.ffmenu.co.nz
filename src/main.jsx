@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
@@ -113,26 +113,35 @@ const data = [
 const SwitchRouteBlock = () => {
 
     let _location = useLocation(),
-        _className = "";
+        _classNameRef = useRef();
 
+    
     useEffect(()=>{
 
-        if(_className)
-            document.body.classList.remove(_className);
+        /**
+         * We just add page class name, according to url location
+         */
+        //First we need to remove prev class name from BODY
+        if(_classNameRef.current)
+            document.body.classList.remove(_classNameRef.current);
             
         switch (_location.pathname) {
             case "/":
-                _className = "home-page";
+                _classNameRef.current = "home-page";
                 break;
 
             case "/checkout":
-                _className = "checkout-page";
+                _classNameRef.current = "checkout-page";
                 break;
         
             default:
+                _classNameRef.current = null;
                 break;
         }
-        document.body.classList.add(_className);
+
+        //To add new class name
+        if(_classNameRef.current)
+            document.body.classList.add(_classNameRef.current);
 
     })
 
