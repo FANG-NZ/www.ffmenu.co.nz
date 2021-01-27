@@ -1,4 +1,5 @@
 import React, {useEffect, useContext} from 'react';
+import { NavLink } from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CartContext from '../tools/cartcontext';
@@ -92,9 +93,10 @@ const LeftEmptyBlock = () => {
                 </span>
                 <h1 className="mb-2">You don't have anything here yet</h1>
                 <h4 className="text-muted mb-5">Please add something you like</h4>
-                <a href="menu-list-navigation.html" className="btn btn-outline-secondary">
+
+                <NavLink to="/" className="btn btn-outline-secondary">
                     <span>Go back to menu</span>
-                </a>
+                </NavLink>
             </div>
         </div>
     )
@@ -110,7 +112,8 @@ const LeftFormBlock = () => {
         <>
         <div className="bg-white p-4 p-md-5 mb-4">
             <h4 className="border-bottom pb-4">
-                <i className="ti ti-user mr-3 text-primary"></i>Basic informations
+                <i className="ti ti-user mr-3 text-primary"></i>
+                Basic informations
             </h4>
 
             <div className="row mb-5">
@@ -166,6 +169,7 @@ const LeftFormBlock = () => {
  */
 const CheckoutPage = () =>{
     const _cartcontext = useContext(CartContext);
+    const _isCartEmpty = _cartcontext.isCartEmpty();
 
     //defien the useEffect HOOKS
     useEffect(()=>{
@@ -213,7 +217,7 @@ const CheckoutPage = () =>{
                             </div>
 
                             {/** Check if cart is empty */}
-                            {_cartcontext.isCartEmpty()
+                            {_isCartEmpty
                                 ? <CartEmptyBlock />
                                 : <>
                                     <table className="cart-table checkout-cart-table">
@@ -236,7 +240,10 @@ const CheckoutPage = () =>{
 
                     {/** START right panel */}
                     <div className="col-xl-8 col-lg-7 order-lg-first">
-                        <LeftEmptyBlock />
+                        {_isCartEmpty
+                            ? <LeftEmptyBlock />
+                            : <LeftFormBlock />
+                        }
                     </div>
                 </div>
             </div>

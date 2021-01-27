@@ -1,3 +1,5 @@
+import '../scss/footer.scss';
+
 const Footer = () =>(
     <footer id="footer" className="bg-dark dark">
 
