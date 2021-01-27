@@ -1,6 +1,7 @@
 import React, {useEffect, useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
+import {useForm} from 'react-hook-form';
 
 import CartContext from '../tools/cartcontext';
 import bannerImage from '../images/checkoutpage-bg.jpg'
@@ -104,12 +105,24 @@ const LeftEmptyBlock = () => {
 
 
 /**
+ * Function is to handle form submitted
+ * @param {form data} data
+ */
+function OnFormSubmit(data){
+
+    console.log(data);
+
+    alert("YES I'm here");
+}
+
+/**
  * define the form block for left panel
  */
 const LeftFormBlock = () => {
+    const {register, handleSubmit, errors} = useForm();
 
     return(
-        <>
+        <form onSubmit={handleSubmit(OnFormSubmit)}>
         <div className="bg-white p-4 p-md-5 mb-4">
             <h4 className="border-bottom pb-4">
                 <i className="ti ti-user mr-3 text-primary"></i>
@@ -118,12 +131,14 @@ const LeftFormBlock = () => {
 
             <div className="row mb-5">
                 <div className="form-group col-sm-6">
-                    <label>Name:</label>
-                    <input type="text" className="form-control" />
+                    <label>Name(*):</label>
+                    <input type="text" name="firstName" ref={register({required: true})}  className="form-control" />
+                    {errors.firstName && <span className="">Please enter your First Name</span>}
                 </div>
                 <div className="form-group col-sm-6">
-                    <label>Surename:</label>
-                    <input type="text" className="form-control" />
+                    <label>Surename(*):</label>
+                    <input type="text" name="surname" ref={register({required: true})} className="form-control" />
+                    {errors.surname && <span>Please enter your Surname</span>}
                 </div>
                 
                 <div className="form-group col-sm-6">
@@ -131,8 +146,17 @@ const LeftFormBlock = () => {
                     <input type="text" className="form-control" />
                 </div>
                 <div className="form-group col-sm-6">
-                    <label>E-mail address:</label>
-                    <input type="email" className="form-control" />
+                    <label>E-mail address(*):</label>
+                    <input className="form-control" type="email" name="email" 
+                        ref={register({
+                            required: "Please enter your email",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                message: "Enter a valid e-mail address",
+                            }
+                        })}  
+                    />
+                    {errors.email && <span>{errors?.email?.message}</span>}
                 </div>
             </div>
 
@@ -159,7 +183,7 @@ const LeftFormBlock = () => {
                 <span>Order now!</span>
             </button>
         </div>
-        </>
+        </form>
     )
 }
 
