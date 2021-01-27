@@ -3,34 +3,160 @@ import {StickyContainer, Sticky} from 'react-sticky-17';
 
 import CartContext from '../tools/cartcontext';
 import bannerImage from '../images/checkoutpage-bg.jpg'
+
+import {CartSummaryBlock, CartEmptyBlock} from '../components/cartpanel';
+
 import '../scss/checkoutpage.scss';
+import FFMenuContext from '../tools/ffmenucontext';
 
 
 /**
  * defien the cart item block
+ * We use new item, not from CartPanel, because we can design different
+ * template here to represent cart item
  */
 const CartItemBlock = (props)=>{
-    const _meal = props.meal,
-          _cartInfo = props.cartInfo;
+    const _meal = props.item.meal,
+          _cartInfo = props.item.cart_item,
+          _ffcontext = useContext(FFMenuContext),
+          _cartcontext = useContext(CartContext);
+
+    const _subtotal = _cartInfo.price * _cartInfo.qty;
+
+    /**
+     * Function is to handle open popup clicked
+     * @param {} e 
+     * @param {*} _cartItem 
+     */
+    function handleOpenPopup(e, _cartItem){
+        e.preventDefault();
+        _ffcontext.mealPopupRef.current.open(_cartItem);
+    }
+
+
+    /**
+     * Function is to handle remove item
+     * @param {*} e 
+     * @param {*} _meal 
+     */
+    function handleRemoveItem(e, _meal){
+        e.preventDefault();
+        _cartcontext.removeItemFromCart(_meal.id);
+    }
 
     return(
-        <tr key={_cartInfo.mid}>
+        <tr>
             <td className="title">
                 <span className="name">
-                    <a href="#product-modal">{_meal.name}</a>
+                    <a href="#open-popup" 
+                        onClick={(e) => handleOpenPopup(e, _meal)}
+                    >
+                        {_meal.name}
+                    </a>
                 </span>
-                <span className="caption text-muted">{_cartInfo.unit}</span>
+                <span className="caption text-muted">
+                    {_cartInfo.comments}
+                </span>
             </td>
-            <td className="price">${_cartInfo.price.toFixed(2)}</td>
+            <td className="price">
+                ${_subtotal.toFixed(2)} 
+                <span className="text-muted">({_cartInfo.qty} Qty)</span>
+            </td>
             <td className="actions">
-                <a href="#product-modal" className="action-icon">
+                <a href="#open-popup" className="action-icon"
+                    onClick={(e) => handleOpenPopup(e, _meal)}
+                >
                     <i className="ti ti-pencil"></i>
                 </a>
-                <a href="#" className="action-icon">
+                <a href="#remove" className="action-icon"
+                    onClick={(e) => handleRemoveItem(e, _meal)}
+                >
                     <i className="ti ti-close"></i>
                 </a>
             </td>
         </tr>
+    )
+}
+
+
+/**
+ * Defien the empty block for left panel
+ */
+const LeftEmptyBlock = () => {
+
+    return(
+        <div className="row">
+            <div className="col-12">
+                <span className="icon icon-xl icon-warning">
+                    <i className="ti ti-alert"></i>
+                </span>
+                <h1 className="mb-2">You don't have anything here yet</h1>
+                <h4 className="text-muted mb-5">Please add something you like</h4>
+                <a href="menu-list-navigation.html" className="btn btn-outline-secondary">
+                    <span>Go back to menu</span>
+                </a>
+            </div>
+        </div>
+    )
+}
+
+
+/**
+ * define the form block for left panel
+ */
+const LeftFormBlock = () => {
+
+    return(
+        <>
+        <div className="bg-white p-4 p-md-5 mb-4">
+            <h4 className="border-bottom pb-4">
+                <i className="ti ti-user mr-3 text-primary"></i>Basic informations
+            </h4>
+
+            <div className="row mb-5">
+                <div className="form-group col-sm-6">
+                    <label>Name:</label>
+                    <input type="text" className="form-control" />
+                </div>
+                <div className="form-group col-sm-6">
+                    <label>Surename:</label>
+                    <input type="text" className="form-control" />
+                </div>
+                
+                <div className="form-group col-sm-6">
+                    <label>Phone number:</label>
+                    <input type="text" className="form-control" />
+                </div>
+                <div className="form-group col-sm-6">
+                    <label>E-mail address:</label>
+                    <input type="email" className="form-control" />
+                </div>
+            </div>
+
+            <h4 className="border-bottom pb-4">
+                <i className="ti ti-package mr-3 text-primary"></i>Pickup
+            </h4>
+            <div className="row mb-5">
+                <div className="form-group col-sm-6">
+                    <label>Pickup time:</label>
+                    <div className="select-container">
+                        <select className="form-control">
+                            <option>As fast as possible</option>
+                            <option>In one hour</option>
+                            <option>In two hours</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div className="text-center">
+            <button className="btn btn-primary btn-lg">
+                <span>Order now!</span>
+            </button>
+        </div>
+        </>
     )
 }
 
@@ -86,115 +212,35 @@ const CheckoutPage = () =>{
                                 <h5 className="mb-0">You order</h5>
                             </div>
 
-                            <table className="cart-table">
-                                <tbody>
+                            {/** Check if cart is empty */}
+                            {_cartcontext.isCartEmpty()
+                                ? <CartEmptyBlock />
+                                : <>
+                                    <table className="cart-table checkout-cart-table">
+                                        <tbody>
 
-                                {_cartcontext.items.map(
-                                    (value) => {
-                                        return <CartItemBlock meal={value.meal} cartInfo={value.cart_item} />
-                                    }
-                                )}
-                                
-                                </tbody>
-                            </table>
+                                        {_cartcontext.items.map(
+                                            (value) => {
+                                                return <CartItemBlock key={value.mid} item={value} />
+                                            }
+                                        )}
+                                        
+                                        </tbody>
+                                    </table>    
+                                    <CartSummaryBlock />
+                                  </>
+                            }
 
-                            <div class="cart-summary">
-                                <div class="row">
-                                    <div class="col-7 text-right text-muted">Order total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-products-total">0.00</span></strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7 text-right text-muted">Devliery:</div>
-                                    <div class="col-5"><strong>$<span class="cart-delivery">0.00</span></strong></div>
-                                </div>
-                                <hr class="hr-sm" />
-                                <div class="row text-lg">
-                                    <div class="col-7 text-right text-muted">Total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-total">0.00</span></strong></div>
-                                </div>
-                            </div>
-                            <div class="cart-empty">
-                                <i class="ti ti-shopping-cart"></i>
-                                <p>Your cart is empty...</p>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-xl-8 col-lg-7 order-lg-first">
-                        <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic informations</h4>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Surename:</label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Street and number:</label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>City:</label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Phone number:</label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>E-mail address:</label>
-                                    <input type="email" class="form-control" />
-                                </div>
-                            </div>
 
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Delivery</h4>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Delivery time:</label>
-                                    <div class="select-container">
-                                        <select class="form-control">
-                                            <option>As fast as possible</option>
-                                            <option>In one hour</option>
-                                            <option>In two hours</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
-                            <div class="row text-lg">
-                                <div class="col-md-4 col-sm-6 form-group">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input" />
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">PayPal</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-sm-6 form-group">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input" />
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Credit Card</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-sm-6 form-group">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input" />
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Cash</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-lg"><span>Order now!</span></button>
-                        </div>
+                    {/** START right panel */}
+                    <div className="col-xl-8 col-lg-7 order-lg-first">
+                        <LeftEmptyBlock />
                     </div>
                 </div>
             </div>
-</section>
+        </section>
         </>
     )
 }

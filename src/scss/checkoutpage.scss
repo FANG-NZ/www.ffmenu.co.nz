@@ -8,11 +8,26 @@
     }
 }
 
+// START
+// Checkout page style
+// ---------------------------------
+.checkout-page{
 
-.cart-table{
+    .checkout-cart-table{
+        td{
+            padding: 1rem .85rem;
+        }
 
-    .title{
-        background-color: red;
+        .title{
+            //background-color: red;
+        }
+        .price{
+            width: 115px;
+            span{
+                margin-left: 2px;
+                font-size: .85rem;
+            }
+        }
     }
 
 }

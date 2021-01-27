@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import { withRouter } from 'react-router-dom';
 import CartContext from '../tools/cartcontext';
 import FFMenuContext from '../tools/ffmenucontext';
@@ -9,8 +9,8 @@ import '../scss/cartpanel.scss';
  * define the cart info block
  */
 const CartInfoBlock = (props) => {
-    const _cartContext = props.cartContext,
-          _ffContext = props.ffContext;
+    const _cartContext = useContext(CartContext),
+          _ffContext = useContext(FFMenuContext);
 
     /**
      * Function is to handle open popup clicked
@@ -71,6 +71,7 @@ const CartInfoBlock = (props) => {
  * define the cart summary block
  */
 const CartSummaryBlock = (props) => {
+    const cartcontext = useContext(CartContext);
 
     return(
         <div className="cart-summary">
@@ -92,7 +93,7 @@ const CartSummaryBlock = (props) => {
                 <div className="col-5">
                     <strong>
                         $<span className="cart-total">
-                            {props.cartContext.getCartTotal().toFixed(2)}
+                            {cartcontext.getCartTotal().toFixed(2)}
                         </span>
                     </strong>
                 </div>
@@ -159,8 +160,8 @@ class CartPanel extends  Component{
                                             {cartcontext.isCartEmpty()
                                                 ? <CartEmptyBlock />
                                                 : <>
-                                                    <CartInfoBlock cartContext={cartcontext} ffContext={ffmenucontext}/>
-                                                    <CartSummaryBlock cartContext={cartcontext} />
+                                                    <CartInfoBlock />
+                                                    <CartSummaryBlock />
                                                   </>
                                             }
                                             
@@ -193,4 +194,5 @@ class CartPanel extends  Component{
 
 }
 
+export {CartSummaryBlock, CartEmptyBlock};
 export default withRouter(CartPanel);
