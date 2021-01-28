@@ -1,12 +1,12 @@
 import React, {useEffect, useRef} from 'react';
-
-import Header from './pages/header';
-import Footer from './pages/footer'
 import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
+import {Transition, animated} from 'react-spring/renderprops';
 
 import {CartProvider} from './tools/cartcontext';
 import {FFMenuContextProvider} from './tools/ffmenucontext';
 
+import Header from './pages/header';
+import Footer from './pages/footer'
 import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
@@ -146,14 +146,41 @@ const SwitchRouteBlock = () => {
     })
 
     return(
-        <Switch>
-            <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
-            <Route exact path="/about-us" component={ AboutUsPage }/>
-            <Route exact path="/contact" component={ ContactPage }/>    
-            <Route path="/checkout" component={ CheckoutPage }/>    
-            
-            <Route component={ NotFoundPage } />                            
-        </Switch>
+        <Route 
+            render={({ location, ...rest }) => (
+
+                <Transition
+                    native
+                    items={location}
+                    keys={location.pathname.split('/')[1]}
+                    from={{ transform: 'translateY(100px)', opacity: 0 }}
+                    enter={{ transform: 'translateY(0px)', opacity: 1 }}
+                    leave={{ transform: 'translateY(100px)', opacity: 0 }}>
+
+                     {(loc, state) => style => (   
+                        <Switch location={state === 'update' ? location : loc}>
+                            <Route exact path="/" 
+                                render={(props) => <HomePage {...props} style={style} catalogs={data} />} />
+                            
+                            <Route exact path="/about-us"
+                                render={(props) => <AboutUsPage {...props} style={style} />} 
+                            />
+                            <Route exact path="/contact" 
+                                render={(props) => <ContactPage {...props} style={style} />} 
+                            />   
+                             
+                            <Route path="/checkout" 
+                                render={(props) => <CheckoutPage {...props} style={style} />} 
+                            />    
+                            
+                            <Route 
+                                render={(props) => <NotFoundPage {...props} style={style} />} 
+                            />                            
+                        </Switch>
+                     )}
+                </Transition>
+            )} 
+        />
     )
 }
 

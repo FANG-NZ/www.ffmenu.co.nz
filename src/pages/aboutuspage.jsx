@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import {Transition, animated} from 'react-spring/renderprops';
 
 export default class AboutUsePage extends Component{
 
     render(){
+        const _style = this.props.style;
+        
         return(
+            <animated.div 
+                className="page-animate"
+                style={{..._style}}  
+            >
             <div className="page-title bg-light">
                 <div className="container">
                     <div className="row">
@@ -14,6 +21,7 @@ export default class AboutUsePage extends Component{
                     </div>
                 </div>
             </div>
+            </animated.div>
         );
     }
 

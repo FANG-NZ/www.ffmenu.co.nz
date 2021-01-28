@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link as ScrollLink} from 'react-scroll';
 import {StickyContainer, Sticky} from 'react-sticky-17';
+import {Transition, animated} from 'react-spring/renderprops';
 
 import CatalogBlock from '../components/catalogblock';
 import CartContext from '../tools/cartcontext';
@@ -37,9 +38,13 @@ export default class HomePage extends Component{
 
     render(){
         const _data = this.props.catalogs;
+        const _style = this.props.style;
 
         return(
-            <>
+            <animated.div 
+                className="page-animate"
+                style={{..._style}}    
+            >
             <div className="page-title bg-light">
                 <div className="container">
                     <div className="row">
@@ -108,7 +113,7 @@ export default class HomePage extends Component{
                 </div>
                 </StickyContainer>
             </div>
-            </>   
+            </animated.div> 
         );
     }
 
