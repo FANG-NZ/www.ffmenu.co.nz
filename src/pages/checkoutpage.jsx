@@ -1,8 +1,9 @@
-import React, {useEffect, useContext, useState} from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useEffect, useContext} from 'react';
+import { NavLink, Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
+import ConfirmationPage from './confirmationpage';
 import CartContext from '../tools/cartcontext';
 import bannerImage from '../images/checkoutpage-bg.jpg'
 
@@ -108,28 +109,26 @@ const LeftEmptyBlock = () => {
  * Function is to handle form submitted
  * @param {form data} data
  */
-function OnFormSubmit(data){
 
-    console.log(data);
-
-    alert("YES I'm here");
-}
 
 /**
  * define the form block for left panel
  */
 const LeftFormBlock = () => {
-    const {register, handleSubmit, errors} = useForm();
+    const {register, handleSubmit, errors, reset} = useForm();
+    const _history = useHistory();
 
-    const [firstName, setFirstName] = useState();
-    const [surename, setSurename] = useState();
+    /**
+     * Function is to handle form submit request
+     * @param {array} data 
+     */
+    function OnFormSubmit(data){
 
-    const onChange = e => {
-        const _value = e.target.value;
-
-        console.log(e.target.name);
-        console.log("Value is " + _value);
-    };
+        console.log(data);
+    
+        reset();
+        _history.push("/checkout/ddd");
+    }
 
     return(
         <form onSubmit={handleSubmit(OnFormSubmit)}>
@@ -144,28 +143,28 @@ const LeftFormBlock = () => {
                     <label>Name(*):</label>
                     <input type="text" name="firstName" className="form-control" 
                         ref={register({required: true})}
-                        value={firstName}
-                        onChange={onChange}
+                        defaultValue="First name"
                     />
                     {errors.firstName && 
                         <span className="error text-danger">Please enter your First Name</span>
                     }
                 </div>
                 <div className="form-group col-sm-6">
-                    <label>Surename(*):</label>
-                    <input type="text" name="surename" className="form-control" 
+                    <label>Surname(*):</label>
+                    <input type="text" name="surname" className="form-control" 
                         ref={register({required: true})}
-                        value={surename}
-                        onChange={onChange}
+                        defaultValue="Surname"
                     />
-                    {errors.surename && 
+                    {errors.surname && 
                         <span className="error text-danger">Please enter your Surname</span>
                     }
                 </div>
                 
                 <div className="form-group col-sm-6">
                     <label>Phone number:</label>
-                    <input type="text" className="form-control" />
+                    <input type="text" name="phone" className="form-control" 
+                        ref={register}
+                    />
                 </div>
                 <div className="form-group col-sm-6">
                     <label>E-mail address(*):</label>
@@ -176,7 +175,8 @@ const LeftFormBlock = () => {
                                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                 message: "Enter a valid e-mail address",
                             }
-                        })}  
+                        })}
+                        defaultValue="test@test.com"  
                     />
                     {errors.email && <span className="error text-danger">{errors.email.message}</span>}
                 </div>
@@ -189,10 +189,11 @@ const LeftFormBlock = () => {
                 <div className="form-group col-sm-6">
                     <label>Pickup time:</label>
                     <div className="select-container">
-                        <select className="form-control">
-                            <option>As fast as possible</option>
-                            <option>In one hour</option>
-                            <option>In two hours</option>
+
+                        <select name="pickup" ref={register} className="form-control">
+                            <option value="1">As fast as possible</option>
+                            <option value="2">In one hour</option>
+                            <option value="3">In two hours</option>
                         </select>
                     </div>
                 </div>
@@ -211,27 +212,12 @@ const LeftFormBlock = () => {
 
 
 /**
- * define the Checkout Page
+ * define the main body of checkout page
  */
-const CheckoutPage = () =>{
+const MainBody = () => {
     const _cartcontext = useContext(CartContext);
     const _isCartEmpty = _cartcontext.isCartEmpty();
 
-    //defien the useEffect HOOKS
-    useEffect(()=>{
-
-        //To call disable cart panel
-        _cartcontext.disableShowCartPanel();
-
-        //defien the cleanup function
-        return function cleanup(){
-            //To enable cart panel
-            _cartcontext.enableShowCartPanel();
-        }
-
-    })
-
-    
     return(
         <>
         {/** SATRT page title */}
@@ -258,8 +244,8 @@ const CheckoutPage = () =>{
                     {/** START left panel */}
                     <div className="col-xl-4 col-lg-5 stick-holder">
 
-                    <Sticky bottomOffset={80}>{
-                        ({style, isSticky}) => 
+                    <Sticky>{
+                        ({style}) => 
                             <div className="cart-details shadow bg-white stick-to-content mb-4" style={style}>
                                 <div className="bg-dark dark p-4">
                                     <h5 className="mb-0">You order</h5>
@@ -301,6 +287,42 @@ const CheckoutPage = () =>{
         </StickyContainer>
         </section>
         </>
+    )
+}
+
+
+
+
+/**
+ * define the Checkout Page
+ */
+const CheckoutPage = () =>{
+    const _cartcontext = useContext(CartContext);
+    let { path } = useRouteMatch();
+
+    //defien the useEffect HOOKS
+    useEffect(()=>{
+
+        //To call disable cart panel
+        _cartcontext.disableShowCartPanel();
+
+        //defien the cleanup function
+        return function cleanup(){
+            //To enable cart panel
+            _cartcontext.enableShowCartPanel();
+        }
+
+    })
+
+    return(
+        <Switch>
+            <Route exact path={path}>
+                <MainBody />
+            </Route>
+            <Route exact path={`${path}/ddd`}>
+                <ConfirmationPage />
+            </Route>
+        </Switch>
     )
 }
 

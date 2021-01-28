@@ -2,9 +2,9 @@ import React, {useEffect, useRef} from 'react';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
-import { Route, Switch, useLocation} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 
-import CartContext, {CartProvider} from './tools/cartcontext';
+import {CartProvider} from './tools/cartcontext';
 import {FFMenuContextProvider} from './tools/ffmenucontext';
 
 import HomePage  from './pages/homepage';
@@ -151,7 +151,7 @@ const SwitchRouteBlock = () => {
             <Route exact path="/about-us" component={ AboutUsPage }/>
             <Route exact path="/contact" component={ ContactPage }/>    
 
-            <Route exact path="/checkout" component={ CheckoutPage }/>    
+            <Route path="/checkout" component={ CheckoutPage }/>    
             <Route component={ NotFoundPage } />                            
         </Switch>
     )
@@ -167,6 +167,7 @@ const Main = () => {
     return (
         <FFMenuContextProvider mealPopupRef={_mealpopupRef}>
         <CartProvider>
+            <Router>
 
             <Header />
             
@@ -186,6 +187,7 @@ const Main = () => {
             {/** Add body overlay here */}
             <BodyOverlay />
 
+            </Router>
         </CartProvider>
         </FFMenuContextProvider>
     );
