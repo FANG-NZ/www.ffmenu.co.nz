@@ -1,10 +1,21 @@
-@media screen and (max-width: 767px) {
+//To fix sticky issue on small screen size
+//-----------------------------------------
+@media screen and (max-width: 991px) {
 
-    //To fix the sticky in small screen
-    #menu-navigation{
-        position: static !important;
-        top: 0 !important;
-        left: 0 !important;
+    .home-page{
+
+        .stick-to-content{
+            position: static !important;
+            top: 0 !important;
+            left: 0 !important;
+        }
+
+        //we have to hard code to remove padding bottom
+        //should try other way?
+        .stick-holder > div > div{
+            padding-bottom: 0 !important;
+        }
+
     }
 
 }

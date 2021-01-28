@@ -52,13 +52,13 @@ export default class HomePage extends Component{
             </div>
 
             {/** START menu list */}
-            <StickyContainer>
             <div className="page-content">
+                <StickyContainer>
                 <div className="container">
                     <div className="row no-gutters">
 
                         {/** START nav bar */}
-                        <div className="col-md-3">         
+                        <div className="col-md-3 stick-holder">         
                             
                                 <Sticky>{
                                     ({style, isSticky}) => 
@@ -106,8 +106,8 @@ export default class HomePage extends Component{
 
                     </div>
                 </div>
+                </StickyContainer>
             </div>
-            </StickyContainer>
             </>   
         );
     }

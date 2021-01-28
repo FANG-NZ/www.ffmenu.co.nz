@@ -1,7 +1,7 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
-import {useForm} from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 
 import CartContext from '../tools/cartcontext';
 import bannerImage from '../images/checkoutpage-bg.jpg'
@@ -121,6 +121,16 @@ function OnFormSubmit(data){
 const LeftFormBlock = () => {
     const {register, handleSubmit, errors} = useForm();
 
+    const [firstName, setFirstName] = useState();
+    const [surename, setSurename] = useState();
+
+    const onChange = e => {
+        const _value = e.target.value;
+
+        console.log(e.target.name);
+        console.log("Value is " + _value);
+    };
+
     return(
         <form onSubmit={handleSubmit(OnFormSubmit)}>
         <div className="bg-white p-4 p-md-5 mb-4">
@@ -132,13 +142,25 @@ const LeftFormBlock = () => {
             <div className="row mb-5">
                 <div className="form-group col-sm-6">
                     <label>Name(*):</label>
-                    <input type="text" name="firstName" ref={register({required: true})}  className="form-control" />
-                    {errors.firstName && <span className="">Please enter your First Name</span>}
+                    <input type="text" name="firstName" className="form-control" 
+                        ref={register({required: true})}
+                        value={firstName}
+                        onChange={onChange}
+                    />
+                    {errors.firstName && 
+                        <span className="error text-danger">Please enter your First Name</span>
+                    }
                 </div>
                 <div className="form-group col-sm-6">
                     <label>Surename(*):</label>
-                    <input type="text" name="surname" ref={register({required: true})} className="form-control" />
-                    {errors.surname && <span>Please enter your Surname</span>}
+                    <input type="text" name="surename" className="form-control" 
+                        ref={register({required: true})}
+                        value={surename}
+                        onChange={onChange}
+                    />
+                    {errors.surename && 
+                        <span className="error text-danger">Please enter your Surname</span>
+                    }
                 </div>
                 
                 <div className="form-group col-sm-6">
@@ -156,7 +178,7 @@ const LeftFormBlock = () => {
                             }
                         })}  
                     />
-                    {errors.email && <span>{errors?.email?.message}</span>}
+                    {errors.email && <span className="error text-danger">{errors.email.message}</span>}
                 </div>
             </div>
 
@@ -227,40 +249,45 @@ const CheckoutPage = () =>{
             </div>
         </div>
 
-        {/** START page content */}
+        {/** START page content */}  
         <section className="section bg-light">
-
+        <StickyContainer>
             <div className="container">
                 <div className="row">
 
                     {/** START left panel */}
-                    <div className="col-xl-4 col-lg-5">
-                        <div className="cart-details shadow bg-white stick-to-content mb-4">
-                            <div className="bg-dark dark p-4">
-                                <h5 className="mb-0">You order</h5>
+                    <div className="col-xl-4 col-lg-5 stick-holder">
+
+                    <Sticky bottomOffset={80}>{
+                        ({style, isSticky}) => 
+                            <div className="cart-details shadow bg-white stick-to-content mb-4" style={style}>
+                                <div className="bg-dark dark p-4">
+                                    <h5 className="mb-0">You order</h5>
+                                </div>
+
+                                {/** Check if cart is empty */}
+                                {_isCartEmpty
+                                    ? <CartEmptyBlock />
+                                    : <>
+                                        <table className="cart-table checkout-cart-table">
+                                            <tbody>
+
+                                            {_cartcontext.items.map(
+                                                (value) => {
+                                                    return <CartItemBlock key={value.mid} item={value} />
+                                                }
+                                            )}
+                                            
+                                            </tbody>
+                                        </table>    
+                                        <CartSummaryBlock />
+                                    </>
+                                }
+
                             </div>
-
-                            {/** Check if cart is empty */}
-                            {_isCartEmpty
-                                ? <CartEmptyBlock />
-                                : <>
-                                    <table className="cart-table checkout-cart-table">
-                                        <tbody>
-
-                                        {_cartcontext.items.map(
-                                            (value) => {
-                                                return <CartItemBlock key={value.mid} item={value} />
-                                            }
-                                        )}
-                                        
-                                        </tbody>
-                                    </table>    
-                                    <CartSummaryBlock />
-                                  </>
-                            }
-
-                        </div>
+                        }</Sticky>
                     </div>
+                    
 
                     {/** START right panel */}
                     <div className="col-xl-8 col-lg-7 order-lg-first">
@@ -271,6 +298,7 @@ const CheckoutPage = () =>{
                     </div>
                 </div>
             </div>
+        </StickyContainer>
         </section>
         </>
     )
