@@ -150,8 +150,8 @@ const SwitchRouteBlock = () => {
             <Route exact path="/" render={(props) => <HomePage {...props} catalogs={data} />} />
             <Route exact path="/about-us" component={ AboutUsPage }/>
             <Route exact path="/contact" component={ ContactPage }/>    
-
             <Route path="/checkout" component={ CheckoutPage }/>    
+            
             <Route component={ NotFoundPage } />                            
         </Switch>
     )

@@ -106,12 +106,6 @@ const LeftEmptyBlock = () => {
 
 
 /**
- * Function is to handle form submitted
- * @param {form data} data
- */
-
-
-/**
  * define the form block for left panel
  */
 const LeftFormBlock = () => {
@@ -127,7 +121,7 @@ const LeftFormBlock = () => {
         console.log(data);
     
         reset();
-        _history.push("/checkout/ddd");
+        _history.push("/checkout/confirmation");
     }
 
     return(
@@ -315,11 +309,12 @@ const CheckoutPage = () =>{
     })
 
     return(
+        //START sub routes here
         <Switch>
             <Route exact path={path}>
                 <MainBody />
             </Route>
-            <Route exact path={`${path}/ddd`}>
+            <Route exact path={`${path}/confirmation`}>
                 <ConfirmationPage />
             </Route>
         </Switch>
