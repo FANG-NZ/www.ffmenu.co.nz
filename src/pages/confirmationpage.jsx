@@ -7,7 +7,7 @@ const ConfirmationPage = (props) => {
     return(
         <animated.div 
                 className="page-animate"
-                style={{..._style}}  
+                style={_style}  
         >
         <section className="section bg-light">
             <div className="container">

@@ -11,6 +11,7 @@ import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
 import CheckoutPage from './pages/checkoutpage';
+import ConfirmationPage from './pages/confirmationpage';
 import NotFoundPage from './pages/notfoundpage';
 
 import CartPanel from './components/cartpanel';
@@ -112,8 +113,8 @@ const data = [
  */
 const SwitchRouteBlock = () => {
 
-    let _location = useLocation(),
-        _classNameRef = useRef();
+    const _location = useLocation();
+    let _classNameRef = useRef();
 
     
     useEffect(()=>{
@@ -148,35 +149,58 @@ const SwitchRouteBlock = () => {
     return(
         <Route 
             render={({ location, ...rest }) => (
-
                 <Transition
                     native
                     items={location}
-                    keys= {location.pathname.split('/')[1]}
-                    from= {{ opacity: 0 }}
-                    enter={{ opacity: 1 }}
-                    leave={{ opacity: 0, position: 'absolute', top: 0, left: 0, width: "100%" }}>
+                    //keys= {location.pathname.split('/')[1]}
+                    //We use pathname as key here to fix
+                    //sub nav issue
+                    keys= {location.pathname}
 
-                     {(loc, state) => style => (   
-                        <Switch location={state === 'update' ? location : loc}>
-                            <Route exact path="/" 
-                                render={(props) => <HomePage style={style} catalogs={data} />} />
-                            
-                            <Route exact path="/about-us"
-                                render={(props) => <AboutUsPage style={style} />} 
-                            />
-                            <Route exact path="/contact" 
-                                render={(props) => <ContactPage style={style} />} 
-                            />             
-                            <Route path="/checkout" 
-                                render={(props) => <CheckoutPage style={style} />} 
-                            />    
-                            
-                            <Route
-                                render={(props) => <NotFoundPage style={style} />} 
-                            />                            
-                        </Switch>
-                     )}
+                    // from= {{ opacity: 0 }}
+                    // enter={{ opacity: 1 }}
+                    // leave={{ opacity: 0, position: 'absolute', top: 0, left: 0, width: "100%" }}
+                    from={{ opacity: 0, transform: 'translate3d(100%,0,0)' }}
+                    enter={[
+                        { opacity: 1, transform: 'translate3d(0%,0,0)' },
+                        // { transform: 'none', immediate: true}
+                    ]}
+                    leave={{ 
+                        opacity: 0, 
+                        transform: 'translate3d(-50%,0,0)', 
+                        position: 'absolute', 
+                        top: 0, 
+                        left: 0, 
+                        width: "100%" 
+                    }}
+                >
+                    {(loc, state) => ({transform, ...style}) => {   
+
+                        let _transform = transform.interpolate( ( t ) => { 
+                            return( t === 'translate3d(0%,0,0)' ? 'none' : t ) 
+                        })
+                        
+                        return(
+                            <Switch location={state === 'update' ? location : loc}>
+                                <Route exact path="/" 
+                                    render={(props) => <HomePage style={{...style, transform : _transform}} catalogs={data} />} />
+                                
+                                <Route path="/about-us"
+                                    render={(props) => <AboutUsPage style={{...style, transform : _transform}} />} 
+                                />
+                                <Route path="/contact" 
+                                    render={(props) => <ContactPage style={{transform : _transform, ...style}} />} 
+                                />             
+                                <Route path="/checkout" 
+                                    render={(props) => <CheckoutPage style={{transform : _transform, ...style}} />} 
+                                />    
+                                    
+                                <Route
+                                    render={(props) => <NotFoundPage style={{transform : _transform, ...style}} />} 
+                                />                            
+                            </Switch>
+                        )
+                    }}
                 </Transition>
             )} 
         />

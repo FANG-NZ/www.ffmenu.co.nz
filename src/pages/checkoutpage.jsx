@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from 'react';
-import { NavLink, Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { NavLink, Switch, Route, useRouteMatch, useHistory, withRouter } from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 import {useForm} from 'react-hook-form';
 import {animated} from 'react-spring/renderprops';
@@ -121,6 +121,7 @@ const LeftFormBlock = () => {
 
         console.log(data);
     
+        
         reset();
         _history.push("/checkout/confirmation");
     }
@@ -217,7 +218,7 @@ const MainBody = (props) => {
     return(
         <animated.div 
             className="page-animate"
-            style={{..._style}}  
+            style={_style}  
         >
         {/** SATRT page title */}
         <div className="page-title bg-dark dark">
@@ -316,14 +317,14 @@ const CheckoutPage = (props) =>{
     
     return(
         //START sub routes here
-        <Switch>
-            <Route exact path={path}>
-                <MainBody {...props}/>
-            </Route>
+        <>
+            <Route exact path={path} 
+                render={() => <MainBody {...props} />} 
+            />  
             <Route path={`${path}/confirmation`}>
                 <ConfirmationPage {...props} />
             </Route>
-        </Switch>
+        </>
     )
 }
 
