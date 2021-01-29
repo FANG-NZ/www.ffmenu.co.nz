@@ -2,6 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import { NavLink, Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 import {useForm} from 'react-hook-form';
+import {animated} from 'react-spring/renderprops';
 
 import ConfirmationPage from './confirmationpage';
 import CartContext from '../tools/cartcontext';
@@ -208,12 +209,16 @@ const LeftFormBlock = () => {
 /**
  * define the main body of checkout page
  */
-const MainBody = () => {
+const MainBody = (props) => {
     const _cartcontext = useContext(CartContext);
     const _isCartEmpty = _cartcontext.isCartEmpty();
+    const _style = props.style;
 
     return(
-        <>
+        <animated.div 
+            className="page-animate"
+            style={{..._style}}  
+        >
         {/** SATRT page title */}
         <div className="page-title bg-dark dark">
             <div className="bg-image bg-parallax">
@@ -280,7 +285,7 @@ const MainBody = () => {
             </div>
         </StickyContainer>
         </section>
-        </>
+        </animated.div>
     )
 }
 
@@ -290,7 +295,7 @@ const MainBody = () => {
 /**
  * define the Checkout Page
  */
-const CheckoutPage = () =>{
+const CheckoutPage = (props) =>{
     const _cartcontext = useContext(CartContext);
     let { path } = useRouteMatch();
 
@@ -308,14 +313,15 @@ const CheckoutPage = () =>{
 
     })
 
+    
     return(
         //START sub routes here
         <Switch>
             <Route exact path={path}>
-                <MainBody />
+                <MainBody {...props}/>
             </Route>
-            <Route exact path={`${path}/confirmation`}>
-                <ConfirmationPage />
+            <Route path={`${path}/confirmation`}>
+                <ConfirmationPage {...props} />
             </Route>
         </Switch>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Transition, animated} from 'react-spring/renderprops';
+import {animated} from 'react-spring/renderprops';
 
 export default class AboutUsePage extends Component{
 

@@ -1,8 +1,14 @@
 import {NavLink} from 'react-router-dom';
+import {animated} from 'react-spring/renderprops';
 
-const ConfirmationPage = () => {
-
+const ConfirmationPage = (props) => {
+    const _style = props.style;
+    
     return(
+        <animated.div 
+                className="page-animate"
+                style={{..._style}}  
+        >
         <section className="section bg-light">
             <div className="container">
                 <div className="row">
@@ -22,6 +28,7 @@ const ConfirmationPage = () => {
                 </div>
             </div>
         </section>
+        </animated.div>
     )
 }
 

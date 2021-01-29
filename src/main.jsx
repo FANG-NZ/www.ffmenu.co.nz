@@ -152,29 +152,28 @@ const SwitchRouteBlock = () => {
                 <Transition
                     native
                     items={location}
-                    keys={location.pathname.split('/')[1]}
-                    from={{ transform: 'translateY(100px)', opacity: 0 }}
-                    enter={{ transform: 'translateY(0px)', opacity: 1 }}
-                    leave={{ transform: 'translateY(100px)', opacity: 0 }}>
+                    keys= {location.pathname.split('/')[1]}
+                    from= {{ opacity: 0 }}
+                    enter={{ opacity: 1 }}
+                    leave={{ opacity: 0, position: 'absolute', top: 0, left: 0, width: "100%" }}>
 
                      {(loc, state) => style => (   
                         <Switch location={state === 'update' ? location : loc}>
                             <Route exact path="/" 
-                                render={(props) => <HomePage {...props} style={style} catalogs={data} />} />
+                                render={(props) => <HomePage style={style} catalogs={data} />} />
                             
                             <Route exact path="/about-us"
-                                render={(props) => <AboutUsPage {...props} style={style} />} 
+                                render={(props) => <AboutUsPage style={style} />} 
                             />
                             <Route exact path="/contact" 
-                                render={(props) => <ContactPage {...props} style={style} />} 
-                            />   
-                             
+                                render={(props) => <ContactPage style={style} />} 
+                            />             
                             <Route path="/checkout" 
-                                render={(props) => <CheckoutPage {...props} style={style} />} 
+                                render={(props) => <CheckoutPage style={style} />} 
                             />    
                             
-                            <Route 
-                                render={(props) => <NotFoundPage {...props} style={style} />} 
+                            <Route
+                                render={(props) => <NotFoundPage style={style} />} 
                             />                            
                         </Switch>
                      )}
