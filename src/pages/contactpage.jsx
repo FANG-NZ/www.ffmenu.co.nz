@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {animated} from 'react-spring/renderprops';
+import GoogleApiWrapper, {GoogleMapBlock} from '../components/googlemap';
 
 export default class ContactPage extends Component{
 
@@ -22,7 +23,7 @@ export default class ContactPage extends Component{
                 </div>
             </div>
 
-            <section class="section">
+            <section className="section">
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-4 offset-lg-1 col-md-6 mb-5 mb-md-0">
@@ -48,7 +49,9 @@ export default class ContactPage extends Component{
                         </div>
 
                         <div className="col-lg-5 offset-lg-2 col-md-6">
-                            <div className="google-map h-500 shadow" data-lat="50.064651" data-lon="19.944981"></div>
+                            <div className="google-map h-500 shadow" data-lat="50.064651" data-lon="19.944981">
+                                <GoogleMapBlock />
+                            </div>
                         </div>
                     </div>
                 </div>
