@@ -43,7 +43,7 @@ export default class HomePage extends Component{
         return(
             <animated.div 
                 className="page-animate"
-                style={{..._style}}    
+                style={_style} 
             >
             <div className="page-title bg-light">
                 <div className="container">

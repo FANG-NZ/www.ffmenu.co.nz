@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {animated} from 'react-spring/renderprops';
-import GoogleApiWrapper, {GoogleMapBlock} from '../components/googlemap';
+import GoogleMapBlock from '../components/googlemap';
 
 export default class ContactPage extends Component{
 

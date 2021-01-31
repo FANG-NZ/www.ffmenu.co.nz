@@ -3,10 +3,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 export class GoogleMapBlock extends Component {
 
-    onMarkerClick(){
-        alert("HERE");
-    }
-
     render() {
         return (
             <Map google={this.props.google} 

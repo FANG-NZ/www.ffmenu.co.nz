@@ -7,7 +7,9 @@ export class FFMenuContextProvider extends Component{
     state = {
         isBodyOverlayShown: false,
         //defien the overlay clicked callback
-        bodyOverlayClicked: ()=>{console.log("This should be assign the callback")}
+        bodyOverlayClicked: ()=>{console.log("This should be assign the callback")},
+
+        isPageLoading: true
     }
 
     constructor(props){
@@ -42,7 +44,7 @@ export class FFMenuContextProvider extends Component{
 
         const {children} = this.props;
         const mealPopupRef = this.props.mealPopupRef;
-        const {isBodyOverlayShown, bodyOverlayClicked} = this.state;
+        const {isBodyOverlayShown, bodyOverlayClicked, isPageLoading} = this.state;
         const { showBodyOverlay, hideBodyOverlay} = this;
 
         return(
@@ -50,6 +52,8 @@ export class FFMenuContextProvider extends Component{
                 value={{
                     mealPopupRef,
                     isBodyOverlayShown,
+                    isPageLoading,
+                    
                     bodyOverlayClicked,
                     showBodyOverlay,
                     hideBodyOverlay

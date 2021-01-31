@@ -1,9 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 import {Transition, animated} from 'react-spring/renderprops';
 
 import {CartProvider} from './tools/cartcontext';
-import {FFMenuContextProvider} from './tools/ffmenucontext';
+import FFMenuContext, {FFMenuContextProvider} from './tools/ffmenucontext';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
@@ -11,12 +11,12 @@ import HomePage  from './pages/homepage';
 import AboutUsPage from './pages/aboutuspage';
 import ContactPage from './pages/contactpage';
 import CheckoutPage from './pages/checkoutpage';
-import ConfirmationPage from './pages/confirmationpage';
 import NotFoundPage from './pages/notfoundpage';
 
 import CartPanel from './components/cartpanel';
 import BodyOverlay from './components/bodyoverlay';
 import MealPopup from './components/mealpopup';
+import PageLoader from './components/pageloader';
 
 
 const data = [
@@ -213,6 +213,7 @@ const SwitchRouteBlock = () => {
 const Main = () => {
     //define the meal popup ref
     const _mealpopupRef = React.createRef();
+    const _ffcontext = useContext(FFMenuContext);
     
     return (
         <FFMenuContextProvider mealPopupRef={_mealpopupRef}>
