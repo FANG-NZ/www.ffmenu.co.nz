@@ -1,0 +1,31 @@
+// START MAIN scss style
+// ------------------------------------------
+
+//To modify bg image style
+//-------------------------------
+.bg-image{
+    overflow: hidden;
+
+    img{
+        display: block !important;
+    }
+}
+
+//START btn with animation icon
+.btn{
+    min-width: 165px;
+    
+    .animsition-loading{
+        position: absolute;
+        display: none;
+    }
+
+    &.animating{
+        span{
+            display: none;
+        }
+        .animsition-loading{
+            display: block;
+        }
+    }
+}

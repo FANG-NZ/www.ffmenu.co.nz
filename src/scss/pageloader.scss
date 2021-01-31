@@ -9,4 +9,15 @@
     bottom: 0;
     background-color: #fff;
     z-index: 1000;
+
+    -webkit-transition: opacity .7s ease-in-out, visibility .7s;
+    -moz-transition:    opacity .7s ease-in-out, visibility .7s;
+    -ms-transition:     opacity .7s ease-in-out, visibility .7s;
+    transition:         opacity .7s ease-in-out, visibility .7s;
+    opacity: 1;
+
+    &.hide{
+        opacity: 0;
+        visibility:hidden;
+    }
 }

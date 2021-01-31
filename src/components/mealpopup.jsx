@@ -158,12 +158,13 @@ export default class MealPopup extends Component{
         let   _data = this.state.data;
         
         //here is to setup default price value
-        //if(_data.price_id === 0 && "prices" in _meal){
         if(this.state.is4AddNew && "prices" in _meal){
             _data.price_id = _meal.prices[0].id;
             _data.unit = _meal.prices[0].unit;
             _data.price = _meal.prices[0].price;
         }
+
+        const _subTotal = _data.price * _data.qty;
 
         return(
             <Modal id="meal-popup" show={this.state.isOpen} onHide={this.close}>
@@ -187,7 +188,7 @@ export default class MealPopup extends Component{
                             <span className="text-muted product-modal-ingredients">{_meal.description}</span>
                         </div>
                         <div className="col-3 text-lg text-right">
-                            $<span className="product-modal-price">{_data.price.toFixed(2)}</span>
+                            $<span className="product-modal-price">{_subTotal.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>

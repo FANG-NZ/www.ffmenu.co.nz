@@ -1,12 +1,5 @@
 // This is to modilfy the style of checkout page
 // ---------------------------------------------
-.bg-image{
-    overflow: hidden;
-
-    img{
-        display: block !important;
-    }
-}
 
 // START
 // Checkout page style
@@ -18,9 +11,7 @@
             padding: 1rem .85rem;
         }
 
-        .title{
-            //background-color: red;
-        }
+        
         .price{
             width: 115px;
             span{

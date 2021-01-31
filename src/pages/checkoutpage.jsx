@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import { NavLink, Route, useRouteMatch, useHistory} from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 import {useForm} from 'react-hook-form';
@@ -112,6 +112,7 @@ const LeftEmptyBlock = () => {
 const LeftFormBlock = () => {
     const {register, handleSubmit, errors, reset} = useForm();
     const _history = useHistory();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     /**
      * Function is to handle form submit request
@@ -119,11 +120,17 @@ const LeftFormBlock = () => {
      */
     function OnFormSubmit(data){
 
-        console.log(data);
+        setIsSubmitting(true)
+        //console.log(data);
     
+        setTimeout(function(){ 
+            
+            setIsSubmitting(false);
+            reset();
+            _history.push("/checkout/confirmation");
+
+        }, 3000); 
         
-        reset();
-        _history.push("/checkout/confirmation");
     }
 
     return(
@@ -198,8 +205,9 @@ const LeftFormBlock = () => {
         </div>
 
         <div className="text-center">
-            <button className="btn btn-primary btn-lg">
+            <button className={`btn btn-primary btn-lg ${(isSubmitting)? "animating" : ''}`}>
                 <span>Order now!</span>
+                <div className="animsition-loading"></div>
             </button>
         </div>
         </form>

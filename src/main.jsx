@@ -247,10 +247,8 @@ const Main = () => {
                 <BodyOverlay />
 
                 {/** Check loading screen */}
-                {_ffcontext.isPageLoading() && 
-                    <PageLoader />
-                }
-
+                <PageLoader isShown={_ffcontext.isPageLoading()} />
+                
             </Router>
         </FFMenuContextProvider>
     );
