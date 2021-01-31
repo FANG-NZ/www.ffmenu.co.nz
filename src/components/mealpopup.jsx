@@ -56,8 +56,6 @@ class MealPriceBlock extends Component{
 }
 
 
-
-
 /**
  * Comonent
  * Meal Popup

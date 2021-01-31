@@ -1,8 +1,7 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
-import {Transition, animated} from 'react-spring/renderprops';
+import {Transition} from 'react-spring/renderprops';
 
-import {CartProvider} from './tools/cartcontext';
 import FFMenuContext, {FFMenuContextProvider} from './tools/ffmenucontext';
 
 import Header from './pages/header';
@@ -207,6 +206,7 @@ const SwitchRouteBlock = () => {
     )
 }
 
+
 /**
  * defien the main component 
  */
@@ -214,32 +214,44 @@ const Main = () => {
     //define the meal popup ref
     const _mealpopupRef = React.createRef();
     const _ffcontext = useContext(FFMenuContext);
-    
+
+    //_ffcontext.hidePageLoader();
+    useEffect(()=>{
+
+        setTimeout(function(){ 
+            _ffcontext.hidePageLoader();
+        }, 3000); 
+
+    }, [])
+
     return (
-        <FFMenuContextProvider mealPopupRef={_mealpopupRef}>
-        <CartProvider>
+        <FFMenuContextProvider mealPopupRef={_mealpopupRef}>  
             <Router>
 
-            <Header />
-            
-            <div id="content">
+                <Header />
                 
-                <SwitchRouteBlock />
+                <div id="content">
+                    
+                    <SwitchRouteBlock />
+                    
+                    <Footer />
+                </div>
                 
-                <Footer />
-            </div>
-            
-            {/** Add Cart Panel */}
-            <CartPanel />
+                {/** Add Cart Panel */}
+                <CartPanel />
 
-            {/** Add Meal Popup */}
-            <MealPopup ref={_mealpopupRef} />
-            
-            {/** Add body overlay here */}
-            <BodyOverlay />
+                {/** Add Meal Popup */}
+                <MealPopup ref={_mealpopupRef} />
+                
+                {/** Add body overlay here */}
+                <BodyOverlay />
+
+                {/** Check loading screen */}
+                {_ffcontext.isPageLoading() && 
+                    <PageLoader />
+                }
 
             </Router>
-        </CartProvider>
         </FFMenuContextProvider>
     );
 }

@@ -1,3 +1,5 @@
+import '../scss/pageloader.scss';
+
 const PageLoader = () => {
 
     return(

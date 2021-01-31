@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link as ScrollLink} from 'react-scroll';
 import {StickyContainer, Sticky} from 'react-sticky-17';
-import {Transition, animated} from 'react-spring/renderprops';
+import {animated} from 'react-spring/renderprops';
 
 import CatalogBlock from '../components/catalogblock';
 import CartContext from '../tools/cartcontext';

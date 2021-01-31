@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from 'react';
-import { NavLink, Switch, Route, useRouteMatch, useHistory, withRouter } from 'react-router-dom';
+import { NavLink, Route, useRouteMatch, useHistory} from 'react-router-dom';
 import {StickyContainer, Sticky} from 'react-sticky-17';
 import {useForm} from 'react-hook-form';
 import {animated} from 'react-spring/renderprops';
