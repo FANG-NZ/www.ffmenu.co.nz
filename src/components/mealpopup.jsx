@@ -46,7 +46,7 @@ class MealPriceBlock extends Component{
                     </span>
                     <span className="custom-control-description">
                         <span className="unit">{_data.unit}</span> 
-                        <span className="price">(${_data.price.toFixed(2)})</span>
+                        <span className="price">(${_data.price})</span>
                     </span>
                 </label>
             </div>

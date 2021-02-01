@@ -111,8 +111,8 @@ const data = [
  * Create switch routes block
  */
 const SwitchRouteBlock = () => {
-
     const _location = useLocation();
+    const _ffcontext = useContext(FFMenuContext);
     let _classNameRef = useRef();
 
     
@@ -182,7 +182,7 @@ const SwitchRouteBlock = () => {
                         return(
                             <Switch location={state === 'update' ? location : loc}>
                                 <Route exact path="/" 
-                                    render={(props) => <HomePage style={{...style, transform : _transform}} catalogs={data} />} />
+                                    render={(props) => <HomePage style={{...style, transform : _transform}} />} />
                                 
                                 <Route path="/about-us"
                                     render={(props) => <AboutUsPage style={{...style, transform : _transform}} />} 
@@ -217,15 +217,27 @@ const Main = () => {
 
     //_ffcontext.hidePageLoader();
     useEffect(()=>{
-
-        setTimeout(function(){ 
-            _ffcontext.hidePageLoader();
-        }, 3000); 
-
+        
+        fetch(process.env.REACT_APP_BASE_URL + "api/get-menu")
+            .then(res => res.json())
+            .then(
+                //For success
+                (result)=>{
+                    
+                    //updateData(result);
+                    _ffcontext.setMenuData(result);
+                    //_ffcontext.hidePageLoader();
+                    console.log(result);
+                },
+                //For error
+                (error)=>{
+                    console.error(error);
+                }
+            )
     }, [])
 
     return (
-        <FFMenuContextProvider mealPopupRef={_mealpopupRef}>  
+        // <FFMenuContextProvider mealPopupRef={_mealpopupRef}>  
             <Router>
 
                 <Header />
@@ -250,7 +262,7 @@ const Main = () => {
                 <PageLoader isShown={_ffcontext.isPageLoading()} />
                 
             </Router>
-        </FFMenuContextProvider>
+        // </FFMenuContextProvider>
     );
 }
 

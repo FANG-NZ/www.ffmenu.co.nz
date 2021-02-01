@@ -7,7 +7,6 @@ export default class MealBlock extends Component{
         const _mealObj = this.props.meal,
               _prices = _mealObj.prices;
 
-
         return(
             <FFMenuContext.Consumer>
                 {(context) => (
@@ -24,7 +23,7 @@ export default class MealBlock extends Component{
                                     {_prices.length > 1 &&
                                         <span className="text-muted" style={{paddingRight: "5px"}}>from</span>
                                     }
-                                    $<span data-product-base-price>{_prices[0].price.toFixed(2)}</span>
+                                    $<span data-product-base-price>{_prices[0].price}</span>
                                 </span>
                                 
                                 <button className="btn btn-outline-secondary btn-sm" 

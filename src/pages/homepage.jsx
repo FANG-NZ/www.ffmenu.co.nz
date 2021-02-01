@@ -4,43 +4,56 @@ import {StickyContainer, Sticky} from 'react-sticky-17';
 import {animated} from 'react-spring/renderprops';
 
 import CatalogBlock from '../components/catalogblock';
-import CartContext from '../tools/cartcontext';
+//import CartContext from '../tools/cartcontext';
+import FFMenuContext from '../tools/ffmenucontext';
 
 import '../scss/homepage.scss';
 
 
 export default class HomePage extends Component{
-    static contextType = CartContext;
+    static contextType = FFMenuContext;
+
+    state = {
+        data:[]
+    }
 
     /**
      * compontDidMount
      * Function is to setup default data here
      * for TESTING
      */
-    componentDidMount(){
-        const _data = this.props.catalogs;
-        const _meal = _data[0].meals[0];
+    // componentDidMount(){
+
+    //     fetch(process.env.REACT_APP_BASE_URL + "api/get-menu")
+    //         .then(res => res.json())
+    //         .then(
+    //             //For success
+    //             (result)=>{
+                    
+    //                 //updateData(result);
+    //                 this.setState({data: result}); 
+    //                 this.context.hidePageLoader();
+                    
+    //             },
+    //             //For error
+    //             (error)=>{
+    //                 console.error(error);
+    //             }
+    //         )
 
         
-        //Try to add item into cart
-        this.context.addItemIntoCart(
-            {
-                qty: 2,
-                price_id: 1,
-                unit: "5/pc(s)",
-                price: 8.5,
-                comments: ""
-            },
-            _meal
-        );
-    }
+    // }
 
 
     render(){
-        const _data = this.props.catalogs;
+        //const _data = this.props.catalogs;
+        const _data = this.context.getMenuData();
+        //const _data = this.state.data;
         const _style = this.props.style;
 
         return(
+            <FFMenuContext.Consumer>
+                {(_context) => (
             <animated.div 
                 className="page-animate"
                 style={_style} 
@@ -92,6 +105,7 @@ export default class HomePage extends Component{
                                                         )
                                                     }
                                                 )}
+
                                             </ul>
                                         </nav>
                                 }</Sticky>
@@ -101,7 +115,7 @@ export default class HomePage extends Component{
                         {/** START catalog & meals */}
                         <div className="col-md-9">
                             
-                            {this.props.catalogs.map(
+                            {_data.map(
                                 (value, index) => {
                                     return <CatalogBlock key={value.id} catalog={value} />;
                                 }
@@ -114,6 +128,8 @@ export default class HomePage extends Component{
                 </StickyContainer>
             </div>
             </animated.div> 
+                )}
+            </FFMenuContext.Consumer>
         );
     }
 

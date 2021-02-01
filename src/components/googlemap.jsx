@@ -22,7 +22,7 @@ export class GoogleMapBlock extends Component {
 
 
   GoogleMapBlock = GoogleApiWrapper({
-    apiKey: ("AIzaSyABLW3-n9piDi5CGAkF63Eo5DcdqinYl5w")
+    apiKey: (process.env.REACT_APP_GOOGLE_MAP_API_KEY)
   })(GoogleMapBlock)
 
   export default GoogleMapBlock;
