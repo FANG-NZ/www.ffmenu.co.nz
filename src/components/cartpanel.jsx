@@ -18,7 +18,7 @@ const CartInfoBlock = (props) => {
      */
     function handleOpenPopup(e, _cartItem){
         e.preventDefault();
-        _ffContext.mealPopupRef.current.open(_cartItem);
+        _ffContext.mealPopupRef.open(_cartItem);
     }
 
     return(
@@ -41,7 +41,7 @@ const CartInfoBlock = (props) => {
                                     </span>
                                     <span className="caption text-muted">{_info.unit}</span>
                                 </td>
-                                <td className="price">${_info.price.toFixed(2)} X ({_info.qty})</td>
+                                <td className="price">${_info.price} X ({_info.qty})</td>
                                 <td className="actions">
                                     <a href="#open-popup" className="action-icon"
                                         onClick={(e) => handleOpenPopup(e, _meal)}

@@ -164,7 +164,7 @@ export default class MealPopup extends Component{
             _data.price = _meal.prices[0].price;
         }
 
-        const _subTotal = _data.price * _data.qty;
+        let _subTotal = _data.price * _data.qty;
 
         return(
             <Modal id="meal-popup" show={this.state.isOpen} onHide={this.close}>

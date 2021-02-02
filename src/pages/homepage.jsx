@@ -13,37 +13,6 @@ import '../scss/homepage.scss';
 export default class HomePage extends Component{
     static contextType = FFMenuContext;
 
-    state = {
-        data:[]
-    }
-
-    /**
-     * compontDidMount
-     * Function is to setup default data here
-     * for TESTING
-     */
-    // componentDidMount(){
-
-    //     fetch(process.env.REACT_APP_BASE_URL + "api/get-menu")
-    //         .then(res => res.json())
-    //         .then(
-    //             //For success
-    //             (result)=>{
-                    
-    //                 //updateData(result);
-    //                 this.setState({data: result}); 
-    //                 this.context.hidePageLoader();
-                    
-    //             },
-    //             //For error
-    //             (error)=>{
-    //                 console.error(error);
-    //             }
-    //         )
-
-        
-    // }
-
 
     render(){
         //const _data = this.props.catalogs;
@@ -52,8 +21,6 @@ export default class HomePage extends Component{
         const _style = this.props.style;
 
         return(
-            <FFMenuContext.Consumer>
-                {(_context) => (
             <animated.div 
                 className="page-animate"
                 style={_style} 
@@ -128,8 +95,6 @@ export default class HomePage extends Component{
                 </StickyContainer>
             </div>
             </animated.div> 
-                )}
-            </FFMenuContext.Consumer>
         );
     }
 

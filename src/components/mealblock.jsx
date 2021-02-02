@@ -30,7 +30,7 @@ export default class MealBlock extends Component{
                                     onClick={
                                         ()=> {
                                             //call context mealpop open function with meal object
-                                            context.mealPopupRef.current.open(_mealObj);
+                                            context.mealPopupRef.open(_mealObj);
                                         }
                                     }
                                 >

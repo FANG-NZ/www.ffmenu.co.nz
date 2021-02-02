@@ -12,11 +12,13 @@ export class FFMenuContextProvider extends Component{
         pageLoadingState: true,
 
         //define the default menu data
-        data: []
+        menuData: []
     }
 
     constructor(props){
         super(props);
+
+        this.mealPopupRef = React.createRef();
 
         this.showBodyOverlay = this.showBodyOverlay.bind(this);
         this.hideBodyOverlay = this.hideBodyOverlay.bind(this);
@@ -25,6 +27,8 @@ export class FFMenuContextProvider extends Component{
 
         this.getMenuData = this.getMenuData.bind(this);
         this.setMenuData = this.setMenuData.bind(this);
+
+        this.setMealpopupRef = this.setMealpopupRef.bind(this);
     }
 
     isPageLoading(){
@@ -35,22 +39,20 @@ export class FFMenuContextProvider extends Component{
      * Function is to get the menu data
      */
     getMenuData(){
-        return this.state.data;
+        return this.state.menuData;
     }
 
     /**
      * Function is to set menu data
      */
     setMenuData(_data){
-        this.setState({data: _data});
-        this.hidePageLoader();
+        this.setState({menuData: _data});
     }
 
     /**
      * Function is to hide page laoder state
      */
     hidePageLoader(){
-        
         this.setState({pageLoadingState : false});
     }
 
@@ -75,26 +77,31 @@ export class FFMenuContextProvider extends Component{
         });
     }
 
+
+    setMealpopupRef(_popup){
+        this.mealPopupRef = _popup;
+    }
+
     render(){
 
         const {children} = this.props;
-        const mealPopupRef = this.props.mealPopupRef;
+        const mealPopupRef = this.mealPopupRef;
     
-        const {isBodyOverlayShown, bodyOverlayClicked, data } = this.state;
+        const {isBodyOverlayShown, bodyOverlayClicked } = this.state;
         const { 
             showBodyOverlay, 
             hideBodyOverlay, 
             hidePageLoader, 
             isPageLoading, 
             getMenuData,
-            setMenuData
+            setMenuData,
+            setMealpopupRef
         } = this;
 
         return(
             <FFMenuContext.Provider
                 value={{
                     mealPopupRef,
-                    data,
 
                     isBodyOverlayShown,
                     hidePageLoader,
@@ -105,7 +112,8 @@ export class FFMenuContextProvider extends Component{
                     hideBodyOverlay,
 
                     getMenuData,
-                    setMenuData
+                    setMenuData,
+                    setMealpopupRef
                 }}
             >
                 {children}

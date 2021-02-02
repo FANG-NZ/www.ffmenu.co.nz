@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router
 import {Transition} from 'react-spring/renderprops';
 
 import FFMenuContext, {FFMenuContextProvider} from './tools/ffmenucontext';
+import {CartProvider} from './tools/cartcontext';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
@@ -224,10 +225,9 @@ const Main = () => {
                 //For success
                 (result)=>{
                     
-                    //updateData(result);
                     _ffcontext.setMenuData(result);
-                    //_ffcontext.hidePageLoader();
-                    console.log(result);
+                    _ffcontext.hidePageLoader();
+                    
                 },
                 //For error
                 (error)=>{
@@ -237,32 +237,30 @@ const Main = () => {
     }, [])
 
     return (
-        // <FFMenuContextProvider mealPopupRef={_mealpopupRef}>  
-            <Router>
+        <Router>
 
-                <Header />
+            <Header />
+            
+            <div id="content">
                 
-                <div id="content">
-                    
-                    <SwitchRouteBlock />
-                    
-                    <Footer />
-                </div>
+                <SwitchRouteBlock />
                 
-                {/** Add Cart Panel */}
-                <CartPanel />
+                <Footer />
+            </div>
+            
+            {/** Add Cart Panel */}
+            <CartPanel />
 
-                {/** Add Meal Popup */}
-                <MealPopup ref={_mealpopupRef} />
-                
-                {/** Add body overlay here */}
-                <BodyOverlay />
+            {/** Add Meal Popup */}
+            <MealPopup ref={_ffcontext.setMealpopupRef} />
+            
+            {/** Add body overlay here */}
+            <BodyOverlay />
 
-                {/** Check loading screen */}
-                <PageLoader isShown={_ffcontext.isPageLoading()} />
-                
-            </Router>
-        // </FFMenuContextProvider>
+            {/** Check loading screen */}
+            <PageLoader isShown={_ffcontext.isPageLoading()} />
+            
+        </Router>
     );
 }
 
