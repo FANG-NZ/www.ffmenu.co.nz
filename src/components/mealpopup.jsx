@@ -39,6 +39,7 @@ class MealPriceBlock extends Component{
                     <input name="radio_size" type="radio" className="custom-control-input"
                         value={_data.id}
                         defaultChecked={this.props.isSlected}
+                        //checked={this.props.isSlected}
                         onChange={(e) => this.props.onPriceClicked(e, _data)}
                     />
                     <span className="custom-control-indicator">
@@ -68,13 +69,7 @@ export default class MealPopup extends Component{
         isOpen: false,
         is4AddNew: true,
         
-        data: {
-            qty: 1,
-            price_id: 0,
-            unit: "",
-            price: 0,
-            comments: ""
-        },
+        data: {},
 
         meal: {}
     }
@@ -94,16 +89,22 @@ export default class MealPopup extends Component{
 
         //To check if item has been added into cart
         const _is4AddNew = !this.context.ifItemExists(_meal.id);
-      
-        if(!_is4AddNew){
-            const _cartItem = this.context.getCartItemFromCart(_meal.id);
+        let _cartItem = {
+            qty: 1,
+            price_id: 0,
+            unit: "",
+            price: 0,
+            comments: ""
+        }
 
-            this.setState({ data: _cartItem });
+        if(!_is4AddNew){
+             _cartItem = this.context.getCartItemFromCart(_meal.id);
         }
 
         this.setState({ 
             isOpen: true, 
             is4AddNew: _is4AddNew, 
+            data: _cartItem,
             meal: _meal
         });
     }
@@ -128,10 +129,9 @@ export default class MealPopup extends Component{
 
     //defien the price radio button clicked
     onPriceSlected(e, object){
-        const _value = e.target.value;
+        let _value = e.target.value;
 
         let _data = this.state.data;
-
         //To update price info
         _data.price_id = _value;
         _data.unit = object.unit;
@@ -158,13 +158,13 @@ export default class MealPopup extends Component{
         let   _data = this.state.data;
         
         //here is to setup default price value
-        if(this.state.is4AddNew && "prices" in _meal){
-            _data.price_id = _meal.prices[0].id;
-            _data.unit = _meal.prices[0].unit;
-            _data.price = _meal.prices[0].price;
-        }
+        // if(this.state.is4AddNew && "prices" in _meal){
+        //     _data.price_id = _meal.prices[0].id;
+        //     _data.unit = _meal.prices[0].unit;
+        //     _data.price = _meal.prices[0].price;
+        // }
 
-        let _subTotal = _data.price * _data.qty;
+        const _subTotal = _data.price * _data.qty;
 
         return(
             <Modal id="meal-popup" show={this.state.isOpen} onHide={this.close}>
@@ -230,8 +230,9 @@ export default class MealPopup extends Component{
                                 (e) => {
                                     let _value = e.target.value,
                                         _data = this.state.data;
-                                        _data.qty = _value;
-                                    this.setState({data: _data})
+
+                                    _data.qty = _value;
+                                    this.setState({data: _data});
                                 }
                             } 
                         />                   

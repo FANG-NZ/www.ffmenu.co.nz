@@ -34,7 +34,7 @@ const CartItemBlock = (props)=>{
      */
     function handleOpenPopup(e, _cartItem){
         e.preventDefault();
-        _ffcontext.mealPopupRef.current.open(_cartItem);
+        _ffcontext.mealPopupRef.open(_cartItem);
     }
 
 

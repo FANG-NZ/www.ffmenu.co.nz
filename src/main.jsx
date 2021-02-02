@@ -213,12 +213,14 @@ const SwitchRouteBlock = () => {
  */
 const Main = () => {
     //define the meal popup ref
-    const _mealpopupRef = React.createRef();
     const _ffcontext = useContext(FFMenuContext);
 
     //_ffcontext.hidePageLoader();
     useEffect(()=>{
         
+        //_ffcontext.setMenuData(data);
+        //_ffcontext.hidePageLoader();
+
         fetch(process.env.REACT_APP_BASE_URL + "api/get-menu")
             .then(res => res.json())
             .then(
