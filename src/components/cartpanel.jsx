@@ -16,9 +16,9 @@ const CartInfoBlock = (props) => {
      * Function is to handle open popup clicked
      * @param {cart item object} _cartItem 
      */
-    function handleOpenPopup(e, _cartItem){
+    function handleOpenPopup(e, data){
         e.preventDefault();
-        _ffContext.mealPopupRef.open(_cartItem);
+        _ffContext.mealPopupRef.open(data.meal, data.id);
     }
 
     return(
@@ -30,11 +30,11 @@ const CartInfoBlock = (props) => {
                               _info = value.cart_item;
 
                         return(
-                            <tr key={_meal.id}>
+                            <tr key={value.id}>
                                 <td className="title">
                                     <span className="name">
                                         <a href="#open-popup" 
-                                            onClick={(e) => handleOpenPopup(e, _meal)}
+                                            onClick={(e) => handleOpenPopup(e, value)}
                                         >
                                             {_meal.name}
                                         </a>
@@ -44,14 +44,14 @@ const CartInfoBlock = (props) => {
                                 <td className="price">${_info.price} X ({_info.qty})</td>
                                 <td className="actions">
                                     <a href="#open-popup" className="action-icon"
-                                        onClick={(e) => handleOpenPopup(e, _meal)}
+                                        onClick={(e) => handleOpenPopup(e, value)}
                                     >
                                         <i className="ti ti-pencil"></i>
                                     </a>
                                     <a href="#remove" className="action-icon" 
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            _cartContext.removeItemFromCart(_meal.id);
+                                            _cartContext.removeItemFromCart(value.id);
                                         }}
                                     >
                                         <i className="ti ti-close"></i>

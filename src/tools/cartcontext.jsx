@@ -13,6 +13,22 @@ export class CartProvider extends React.Component{
     state = {
         isCartPanelShown: false,
         //main cart data
+        /**
+         * Structure of item
+         * [
+         *   id        {string meal id & selected price id}
+         *   cart_item {cart item info}
+         *      {
+         *          qty: 1,
+                    price_id: 0,
+                    unit: "",
+                    price: 0,
+                    comments: ""
+                }
+         *   meal      {object of meal}
+         * ]
+         * 
+         */
         items:[]
     }
 
@@ -33,6 +49,9 @@ export class CartProvider extends React.Component{
 
     constructor(props){
         super(props);
+
+        //To setup base key number
+        this.baseKey = this.state.items.length;
 
         this.openCartPanel = this.openCartPanel.bind(this);
         this.closeCartPanel = this.closeCartPanel.bind(this);
@@ -92,12 +111,13 @@ export class CartProvider extends React.Component{
      * Function is to add item into cart
      * @param {object} info the cart item 
      * @param {object} meal the meal object 
+     * @param {cart item id} id
      */
-    addItemIntoCart(info, meal){
+    addItemIntoCart(info, meal, id){
         let _items = this.state.items;
 
         //Try to find the item from list
-        const  _foundIndex = this.findItemIndexFromCart(meal.id);
+        let  _foundIndex = this.findItemIndexFromCart(id);
 
         if(_foundIndex >= 0){
 
@@ -105,11 +125,15 @@ export class CartProvider extends React.Component{
             _items[_foundIndex].cart_item = info;
         }
         else{
+            //To create cart item id
+            const _id = this.baseKey = (this.baseKey + 1);
+
             _items.push({
-                mid: meal.id,
+                id: _id,
                 cart_item:info,
                 meal: meal
             });
+
         }
 
         this.setState({items: _items});
@@ -117,17 +141,17 @@ export class CartProvider extends React.Component{
 
     /**
      * Function is to find if item exists, if YES return the object
-     * @param {meal id} _id 
+     * @param {cart item id} _id 
      */
     findItemIndexFromCart(_id){
-        const _index = this.state.items.findIndex(x => x.mid === _id);
+        const _index = this.state.items.findIndex(x => x.id === _id);
         return _index;
     }
 
     /**
      * Function is to check if this item has been added
      * into list(items)
-     * @param {meal id} _id 
+     * @param {cart item id} _id 
      * @returns {boolean}
      */
     ifItemExists(_id){
@@ -143,7 +167,7 @@ export class CartProvider extends React.Component{
     /**
      * Function is to get cart item info from
      * cart items
-     * @param {meal id} _id 
+     * @param {cart item id} _id 
      */
     getCartItemFromCart(_id){
         const _index = this.findItemIndexFromCart(_id);
@@ -157,7 +181,7 @@ export class CartProvider extends React.Component{
 
     /**
      * Function is tpo remove item from cart
-     * @param {meal id} _id 
+     * @param {cart item id} _id 
      */
     removeItemFromCart(_id){
         let _items = this.state.items;

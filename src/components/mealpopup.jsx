@@ -77,34 +77,38 @@ export default class MealPopup extends Component{
     constructor(props){
         super(props);
 
+        this.item_id = null;
+
         this.onPriceSlected = this.onPriceSlected.bind(this);
     }
 
     /**
      * Function is to open popup
      * @param {meal object} _meal
+     * @param {cart item id} _id
      * cart & meal info 
      */
-    open = (_meal) => {
+    open = (_meal, _id = null) => {
 
         //To check if item has been added into cart
-        const _is4AddNew = !this.context.ifItemExists(_meal.id);
-        let _cartItem = {
-            qty: 1,
-            price_id: 0,
-            unit: "",
-            price: 0,
-            comments: ""
-        }
+        const _is4AddNew = !this.context.ifItemExists(_id);
+
+        console.log(_id);
+
+        let _cartItem = {};
 
         if(!_is4AddNew){
-             _cartItem = this.context.getCartItemFromCart(_meal.id);
+            this.item_id = _id;
+             _cartItem = this.context.getCartItemFromCart(_id);
         }else{
 
-            //To setup default price data
-            _cartItem.price_id = _meal.prices[0].id;
-            _cartItem.unit = _meal.prices[0].unit;
-            _cartItem.price = _meal.prices[0].price;
+            _cartItem = {
+                qty: 1,
+                price_id: _meal.prices[0].id,
+                unit: _meal.prices[0].unit,
+                price: _meal.prices[0].price,
+                comments: ""
+            };
 
         }
 
@@ -120,6 +124,9 @@ export default class MealPopup extends Component{
      * Function is to handle close popup
      */
     close = () => {
+
+        this.item_id = null;
+
         this.setState({ 
             isOpen: false, 
             is4AddNew: true,
@@ -153,7 +160,7 @@ export default class MealPopup extends Component{
         const {data, meal} = this.state;
 
         //call cart context to add new item
-        this.context.addItemIntoCart(data, meal);
+        this.context.addItemIntoCart(data, meal, this.item_id);
 
         //To update cart info
         //close popup

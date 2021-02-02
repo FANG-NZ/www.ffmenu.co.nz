@@ -32,9 +32,9 @@ const CartItemBlock = (props)=>{
      * @param {} e 
      * @param {*} _cartItem 
      */
-    function handleOpenPopup(e, _cartItem){
+    function handleOpenPopup(e, data){
         e.preventDefault();
-        _ffcontext.mealPopupRef.open(_cartItem);
+        _ffcontext.mealPopupRef.open(data.meal, data.id);
     }
 
 
@@ -43,9 +43,9 @@ const CartItemBlock = (props)=>{
      * @param {*} e 
      * @param {*} _meal 
      */
-    function handleRemoveItem(e, _meal){
+    function handleRemoveItem(e, _id){
         e.preventDefault();
-        _cartcontext.removeItemFromCart(_meal.id);
+        _cartcontext.removeItemFromCart(_id);
     }
 
     return(
@@ -53,7 +53,7 @@ const CartItemBlock = (props)=>{
             <td className="title">
                 <span className="name">
                     <a href="#open-popup" 
-                        onClick={(e) => handleOpenPopup(e, _meal)}
+                        onClick={(e) => handleOpenPopup(e, props.item)}
                     >
                         {_meal.name}
                     </a>
@@ -68,12 +68,12 @@ const CartItemBlock = (props)=>{
             </td>
             <td className="actions">
                 <a href="#open-popup" className="action-icon"
-                    onClick={(e) => handleOpenPopup(e, _meal)}
+                    onClick={(e) => handleOpenPopup(e, props.item)}
                 >
                     <i className="ti ti-pencil"></i>
                 </a>
                 <a href="#remove" className="action-icon"
-                    onClick={(e) => handleRemoveItem(e, _meal)}
+                    onClick={(e) => handleRemoveItem(e, props.item.id)}
                 >
                     <i className="ti ti-close"></i>
                 </a>
@@ -268,7 +268,7 @@ const MainBody = (props) => {
 
                                             {_cartcontext.items.map(
                                                 (value) => {
-                                                    return <CartItemBlock key={value.mid} item={value} />
+                                                    return <CartItemBlock key={value.id} item={value} />
                                                 }
                                             )}
                                             
