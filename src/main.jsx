@@ -2,8 +2,7 @@ import React, {useContext, useEffect, useRef} from 'react';
 import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 import {Transition} from 'react-spring/renderprops';
 
-import FFMenuContext, {FFMenuContextProvider} from './tools/ffmenucontext';
-import {CartProvider} from './tools/cartcontext';
+import FFMenuContext from './tools/ffmenucontext';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
@@ -33,12 +32,12 @@ const data = [
                     {
                         id: 1,
                         unit: "5/pc(s)",
-                        price: 8.50
+                        price: "8.50"
                     },
                     {
                         id: 2,
                         unit: "10/pc(s)",
-                        price: 17.00
+                        price: "17.00"
                     }
                 ]
             },
@@ -50,12 +49,12 @@ const data = [
                     {
                         id: 3,
                         unit: "5/pc(s)",
-                        price: 8.50
+                        price: "8.50"
                     },
                     {
                         id: 4,
                         unit: "10/pc(s)",
-                        price: 17.00
+                        price: "17.00"
                     }
                 ]
             }
@@ -75,12 +74,12 @@ const data = [
                     {
                         id: 5,
                         unit: "5/pc(s)",
-                        price: 9.00
+                        price: "9.00"
                     },
                     {
                         id: 6,
                         unit: "10/pc(s)",
-                        price: 18.00
+                        price: "18.00"
                     }
                 ]
             }
@@ -100,7 +99,7 @@ const data = [
                     {
                         id: 7,
                         unit: "pack",
-                        price: 13.90
+                        price: "13.90"
                     }
                 ]
             }
@@ -113,7 +112,6 @@ const data = [
  */
 const SwitchRouteBlock = () => {
     const _location = useLocation();
-    const _ffcontext = useContext(FFMenuContext);
     let _classNameRef = useRef();
 
     
@@ -212,7 +210,6 @@ const SwitchRouteBlock = () => {
  * defien the main component 
  */
 const Main = () => {
-    //define the meal popup ref
     const _ffcontext = useContext(FFMenuContext);
 
     //_ffcontext.hidePageLoader();

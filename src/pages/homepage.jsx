@@ -13,7 +13,6 @@ import '../scss/homepage.scss';
 export default class HomePage extends Component{
     static contextType = FFMenuContext;
 
-
     render(){
         //const _data = this.props.catalogs;
         const _data = this.context.getMenuData();

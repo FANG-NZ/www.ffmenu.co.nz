@@ -99,6 +99,13 @@ export default class MealPopup extends Component{
 
         if(!_is4AddNew){
              _cartItem = this.context.getCartItemFromCart(_meal.id);
+        }else{
+
+            //To setup default price data
+            _cartItem.price_id = _meal.prices[0].id;
+            _cartItem.unit = _meal.prices[0].unit;
+            _cartItem.price = _meal.prices[0].price;
+
         }
 
         this.setState({ 
@@ -155,7 +162,7 @@ export default class MealPopup extends Component{
 
     render(){
         const _meal = this.state.meal;
-        let   _data = this.state.data;
+        const _data = this.state.data;
         
         //here is to setup default price value
         // if(this.state.is4AddNew && "prices" in _meal){
