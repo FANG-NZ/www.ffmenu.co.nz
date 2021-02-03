@@ -59,6 +59,8 @@ export class CartProvider extends React.Component{
         this.enableShowCartPanel = this.enableShowCartPanel.bind(this);
         this.canShowCartPanel = this.canShowCartPanel.bind(this);
 
+        this.loadDataFromLocalStorage = this.loadDataFromLocalStorage.bind(this);
+
         this.isCartEmpty = this.isCartEmpty.bind(this);
         this.getCartItemNumber = this.getCartItemNumber.bind(this);
         this.getCartTotal = this.getCartTotal.bind(this);
@@ -66,6 +68,7 @@ export class CartProvider extends React.Component{
         this.removeItemFromCart = this.removeItemFromCart.bind(this);
         this.ifItemExists = this.ifItemExists.bind(this);
         this.getCartItemFromCart = this.getCartItemFromCart.bind(this);
+        this.clearCartItems = this.clearCartItems.bind(this);
     }
 
     //To open cart panel
@@ -136,6 +139,9 @@ export class CartProvider extends React.Component{
 
         }
 
+        //To store cart info into local storeage
+        localStorage.setItem("ffmenu_cart_info", JSON.stringify(_items));
+
         this.setState({items: _items});
     }
 
@@ -193,12 +199,47 @@ export class CartProvider extends React.Component{
             //To remove item from list
             _items.splice(_foundIndex, 1);
 
+            //To store cart info into local storeage
+            localStorage.setItem("ffmenu_cart_info", JSON.stringify(_items));
             //Update state
             this.setState({items: _items});
         }
         else{
             console.log("WARNING, there is ITEM found in the list [" + _id + "]");
         }
+    }
+
+    /**
+     * Function is to clear cart info
+     * it should be called after submit
+     */
+    clearCartItems(){
+
+        //To setup empty items array into state
+        this.setState({items: []});
+        //clear local storage
+        localStorage.removeItem("ffmenu_cart_info");
+
+    }
+
+
+    /**
+     * Function is to try load data back from local storage
+     */
+    loadDataFromLocalStorage(){
+        const _data = localStorage.getItem("ffmenu_cart_info");
+
+        //If data is empty, nothing to do here
+        if(!_data){
+            return;
+        }
+
+        const _items = JSON.parse(_data);
+        const _baseKey = _items[_items.length-1].id;
+
+        //To init cart data here
+        this.baseKey = _baseKey;
+        this.setState({items: _items});
     }
 
 
@@ -212,13 +253,16 @@ export class CartProvider extends React.Component{
             enableShowCartPanel,
             canShowCartPanel,
 
+            loadDataFromLocalStorage,
+
             isCartEmpty, 
             getCartItemNumber,  
             addItemIntoCart, 
             getCartTotal,
             removeItemFromCart,
             ifItemExists,
-            getCartItemFromCart } = this;
+            getCartItemFromCart,
+            clearCartItems } = this;
 
         return(
             <CartContext.Provider
@@ -232,13 +276,16 @@ export class CartProvider extends React.Component{
                     enableShowCartPanel,
                     canShowCartPanel,
 
+                    loadDataFromLocalStorage,
+
                     isCartEmpty,
                     getCartItemNumber,
                     addItemIntoCart,
                     getCartTotal,
                     removeItemFromCart,
                     ifItemExists,
-                    getCartItemFromCart
+                    getCartItemFromCart,
+                    clearCartItems
                 }}
             >
                 {children}

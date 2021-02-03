@@ -18,8 +18,6 @@ export class FFMenuContextProvider extends Component{
     constructor(props){
         super(props);
 
-        this.mealPopupRef = React.createRef();
-
         this.showBodyOverlay = this.showBodyOverlay.bind(this);
         this.hideBodyOverlay = this.hideBodyOverlay.bind(this);
         this.hidePageLoader = this.hidePageLoader.bind(this);
@@ -77,8 +75,13 @@ export class FFMenuContextProvider extends Component{
         });
     }
 
-
+    /**
+     * Function is to setup meal popup
+     * @param {*} _popup 
+     */
     setMealpopupRef(_popup){
+        this.mealPopupRef = React.createRef();
+
         this.mealPopupRef = _popup;
     }
 

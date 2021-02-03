@@ -112,6 +112,7 @@ const LeftEmptyBlock = () => {
 const LeftFormBlock = () => {
     const {register, handleSubmit, errors, reset} = useForm();
     const _history = useHistory();
+    const _cartcontext = useContext(CartContext);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     /**
@@ -127,6 +128,9 @@ const LeftFormBlock = () => {
             
             setIsSubmitting(false);
             reset();
+
+            //call to clear cart info
+            _cartcontext.clearCartItems();
             _history.push("/checkout/confirmation");
 
         }, 3000); 

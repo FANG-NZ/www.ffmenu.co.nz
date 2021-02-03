@@ -93,8 +93,6 @@ export default class MealPopup extends Component{
         //To check if item has been added into cart
         const _is4AddNew = !this.context.ifItemExists(_id);
 
-        console.log(_id);
-
         let _cartItem = {};
 
         if(!_is4AddNew){

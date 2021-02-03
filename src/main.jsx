@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, useLocation} from 'react-router
 import {Transition} from 'react-spring/renderprops';
 
 import FFMenuContext from './tools/ffmenucontext';
+import CartContext from './tools/cartcontext';
 
 import Header from './pages/header';
 import Footer from './pages/footer'
@@ -211,12 +212,10 @@ const SwitchRouteBlock = () => {
  */
 const Main = () => {
     const _ffcontext = useContext(FFMenuContext);
+    const _cartcontext = useContext(CartContext);
 
     //_ffcontext.hidePageLoader();
     useEffect(()=>{
-        
-        //_ffcontext.setMenuData(data);
-        //_ffcontext.hidePageLoader();
 
         fetch(process.env.REACT_APP_BASE_URL + "api/get-menu")
             .then(res => res.json())
@@ -225,12 +224,15 @@ const Main = () => {
                 (result)=>{
                     
                     _ffcontext.setMenuData(result);
+                    _cartcontext.loadDataFromLocalStorage();
+
                     _ffcontext.hidePageLoader();
                     
                 },
                 //For error
                 (error)=>{
                     console.error(error);
+                    _ffcontext.hidePageLoader();
                 }
             )
     }, [])
